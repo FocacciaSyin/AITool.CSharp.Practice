@@ -1,0 +1,19 @@
+# 開發環境設定檔（可能包含 API 金鑰）
+appsettings.Development.json
+appsettings.Local.json
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+
+# IDE files
+.vs/
+.vscode/
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -9,7 +9,7 @@
         "testStrategy": "- 執行 `dotnet build` 確保專案可編譯 - 在程式啟動時印出 Kernel 版本資訊以驗證套件載入成功",
         "priority": "high",
         "dependencies": [],
-        "status": "pending",
+        "status": "done",
         "subtasks": []
       },
       {
@@ -69,7 +69,7 @@
     ],
     "metadata": {
       "created": "2025-08-28T08:07:35.212Z",
-      "updated": "2025-08-28T08:07:35.212Z",
+      "updated": "2025-08-28T09:57:25.137Z",
       "description": "Tasks for master context"
     }
   }

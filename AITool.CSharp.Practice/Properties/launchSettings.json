@@ -1,0 +1,16 @@
+{
+  "profiles": {
+    "AITool.CSharp.Practice": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    },
+    "AITool.CSharp.Practice (Production)": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Production"
+      }
+    }
+  }
+}
