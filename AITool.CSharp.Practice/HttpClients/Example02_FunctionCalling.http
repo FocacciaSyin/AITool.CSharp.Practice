@@ -1,0 +1,21 @@
+### FunctionCalling 範例
+
+POST https://api.openai.com/v1/chat/completions HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{OpenAI_APIKEY}}
+
+{
+  "model": "gpt-4o-mini",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一個有專業的房屋仲介，且熟知各大平台房價資訊，請使用繁體中文回覆，且每次條列結果給使用者。"
+    },
+    {
+      "role": "user",
+      "content": "我想買雙北市，1500萬的公寓給我建議。"
+    }
+  ],
+  "max_tokens": 500,
+  "temperature": 0.2
+}
