@@ -6,6 +6,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <UserSecretsId>c01c86e2-632b-4f29-8348-a13dcc6b51bd</UserSecretsId>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,11 +23,16 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.7" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.7" />
-      <PackageReference Include="Microsoft.SemanticKernel" Version="1.15.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.8" />
+      <PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Infrastructure\" />
     </ItemGroup>
 
 </Project>
