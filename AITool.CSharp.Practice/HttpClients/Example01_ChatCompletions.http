@@ -1,5 +1,7 @@
 ### Chat Completions 範例
 
+###  OpenAI
+# https://platform.openai.com/docs/api-reference/chat/create
 POST https://api.openai.com/v1/chat/completions HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{OpenAI_APIKEY}}
@@ -9,7 +11,7 @@ Authorization: Bearer {{OpenAI_APIKEY}}
   "messages": [
     {
       "role": "system",
-      "content": "你是一個有專業的房屋仲介，且熟知各大平台房價資訊，請使用繁體中文回覆，且每次條列結果給使用者。"
+      "content": "你是一個有專業的房屋仲介，且熟知各大平台房價資訊，請使用繁體中文回覆。"
     },
     {
       "role": "user",
@@ -18,4 +20,54 @@ Authorization: Bearer {{OpenAI_APIKEY}}
   ],
   "max_tokens": 500,
   "temperature": 0.2
+}
+
+
+### Gemini API 相容性
+# https://ai.google.dev/gemini-api/docs/openai?hl=zh-tw#rest
+
+# 範例一： 與 OpenAI Chat Completions 相同 
+# 只要把 model 換成 Gemini 模型就可以
+POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{Gemini_APIKEY}}
+
+{
+  "model": "gemini-2.0-flash",
+  "messages": [
+    {
+      "role": "system",
+      "content": "你是一個有專業的房屋仲介，且熟知各大平台房價資訊，請使用繁體中文回覆。"
+    },
+    {
+      "role": "user",
+      "content": "我想買雙北市，1500萬的公寓給我建議。"
+    }
+  ],
+  "max_tokens": 500,
+  "temperature": 0.2
+}
+
+### 
+# 範例二： 使用會思考的模型
+# gemini 2.5-flash & pro 都是會查外部資料的
+POST https://generativelanguage.googleapis.com/v1beta/openai/chat/completions HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{Gemini_APIKEY}}
+
+{
+  "model": "gemini-2.5-pro",
+  "messages": [
+    {
+      "role": "user",
+      "content": "我想買新北市三重區永福街197巷周邊，實價登錄資料提供給我，而且要給我即時資訊"
+    }
+  ],
+  "extra_body": {
+    "google": {
+      "thinking_config": {
+        "include_thoughts": true
+      }
+    }
+  }
 }

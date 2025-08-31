@@ -8,14 +8,32 @@ Authorization: Bearer {{OpenAI_APIKEY}}
   "model": "gpt-4o-mini",
   "messages": [
     {
-      "role": "system",
-      "content": "你是一個有專業的房屋仲介，且熟知各大平台房價資訊，請使用繁體中文回覆，且每次條列結果給使用者。"
-    },
-    {
       "role": "user",
-      "content": "我想買雙北市，1500萬的公寓給我建議。"
+      "content": "What is the weather like in Boston today?"
     }
   ],
-  "max_tokens": 500,
-  "temperature": 0.2
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "get_current_weather",
+        "description": "Get the current weather in a given location",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "location": {
+              "type": "string",
+              "description": "The city and state, e.g. San Francisco, CA"
+            },
+            "unit": {
+              "type": "string",
+              "enum": ["celsius", "fahrenheit"]
+            }
+          },
+          "required": ["location"]
+        }
+      }
+    }
+  ],
+  "tool_choice": "auto"
 }

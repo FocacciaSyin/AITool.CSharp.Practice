@@ -1,0 +1,45 @@
+{
+  "meta": {
+    "generatedAt": "2025-08-30T07:27:46.428Z",
+    "tasksAnalyzed": 4,
+    "totalTasks": 5,
+    "analysisCount": 4,
+    "thresholdScore": 5,
+    "projectName": "Taskmaster",
+    "usedResearch": false
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 2,
+      "taskTitle": "部署 PostgreSQL 與 PgVector 資料庫",
+      "complexityScore": 6,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "請詳細描述每個子任務的具體步驟和注意事項。",
+      "reasoning": "此任務涉及多個步驟，包括安裝 PostgreSQL、安裝 PgVector 擴充、建立資料表和設定連線字串。每個步驟都需要仔細配置和測試，建議拆分為四個子任務以確保順利完成。"
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "整合 OpenAI Chat Completion 與 Function Calling",
+      "complexityScore": 7,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "請詳細描述每個子任務的具體步驟和注意事項。",
+      "reasoning": "此任務涉及在 Semantic Kernel 中註冊 ChatCompletionSkill、定義 FunctionCall 介面、設計 Prompt Template 和建立 Console 介面。每個步驟都需要精確實現和測試，建議拆分為四個子任務以確保順利完成。"
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "串接 Fugle API 並實現自然語言參數轉換",
+      "complexityScore": 8,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "請詳細描述每個子任務的具體步驟和注意事項。",
+      "reasoning": "此任務涉及註冊 Fugle API Key、實作 IFugleService、建立 NL-to-Params 模組和處理 API 回應。每個步驟都需要仔細設計和測試，建議拆分為四個子任務以確保順利完成。"
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "對話記錄與文本向量化儲存",
+      "complexityScore": 7,
+      "recommendedSubtasks": 4,
+      "expansionPrompt": "請詳細描述每個子任務的具體步驟和注意事項。",
+      "reasoning": "此任務涉及擴充對話引擎以記錄對話、使用 Semantic Kernel 的 TextEmbeddingSkill 進行文本向量化、將向量與 Metadata 存入資料表和實作相似性搜尋。每個步驟都需要精確實現和測試，建議拆分為四個子任務以確保順利完成。"
+    }
+  ]
+}

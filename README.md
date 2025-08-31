@@ -1,6 +1,6 @@
 # 學習使用
 
-使用 Semantic kernal C# SDK 來建立智慧應用程式
+使用 Semantic kernal & [Microsoft Kernel Memory](https://github.com/microsoft/kernel-memory/tree/main) C# SDK 來建立智慧應用程式
 先從基本範例開始建立，逐步加入更多功能
 
 # 需求
@@ -17,6 +17,14 @@
    4.3 system prompt
    4.4 function prompt
    4.5 評分(未來會做為強化學習的依據)
+
+---
+
+# 參考文章
+
+https://ithelp.ithome.com.tw/articles/10367471
+
+https://github.com/andrew0928/AndrewDemo.DevAIAPPs
 
 ---
 
