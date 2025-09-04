@@ -31,8 +31,4 @@
       <PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Infrastructure\" />
-    </ItemGroup>
-
 </Project>
