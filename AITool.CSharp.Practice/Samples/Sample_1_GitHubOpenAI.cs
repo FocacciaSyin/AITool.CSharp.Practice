@@ -6,6 +6,9 @@ using OpenAI.Chat;
 
 namespace AITool.CSharp.Practice.Samples;
 
+/// <summary>
+/// 使用 OpenAI SDK 基本詢問
+/// </summary>
 public class Sample_1_GitHubOpenAI
 {
     private readonly GitHubSettings _gitHubSettings;
