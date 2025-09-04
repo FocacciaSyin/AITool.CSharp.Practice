@@ -26,5 +26,12 @@ var kernel = Kernel.CreateBuilder()
         apiKey: openAiApiKey.ApiKey)
     .Build();
 
-Console.WriteLine(await kernel.InvokePromptAsync("What color is the sky?"));
+Console.WriteLine(openAiApiKey.Model);
+
+//1. 基本詢問的功能
+Console.WriteLine(await kernel.InvokePromptAsync("你現在使用的模型是甚麼??"));
+
+//1.1 使用 Copilot Model 
+
+//2. 使用 Function Calling 功能
 
