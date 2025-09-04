@@ -1,64 +1,25 @@
-using System.ClientModel;
-using System.Text;
 using AITool.CSharp.Practice.Models;
-using Microsoft.Extensions.Configuration;
-using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
-using OpenAI;
-using OpenAI.Chat;
+using AITool.CSharp.Practice.Samples;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
-IConfiguration? _configuration;
+var build = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((context, services) =>
+    {
+        // Register configuration settings
+        services.Configure<OpenAISettings>(context.Configuration.GetSection("OpenAI"));
+        services.Configure<GitHubSettings>(context.Configuration.GetSection("GitHub"));
 
-var basePath = AppContext.BaseDirectory;
-
-var configurationBuilder = new ConfigurationBuilder()
-    .SetBasePath(basePath)
-    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-    .AddUserSecrets<Program>()
-    .AddEnvironmentVariables();
-
-_configuration = configurationBuilder.Build();
-
-var openAiApiKey = _configuration.GetSection("OpenAI").Get<OpenAISettings>();
-var githubApiKey = _configuration.GetSection("GitHub").Get<GitHubSettings>();
-
-// 1. Kernel Build 基本範例
-// var kernel = Kernel.CreateBuilder()
-//     .AddOpenAIChatCompletion(
-//         modelId: openAiApiKey.Model,
-//         apiKey: openAiApiKey.ApiKey)
-//     .Build();
-// Console.WriteLine(openAiApiKey.Model);
-
-// 2. 使用 Github Model
-var openAIOptions = new OpenAIClientOptions()
-{
-    Endpoint = new Uri(githubApiKey.EndPoint)
-};
-var client = new ChatClient(githubApiKey.ModelId, new ApiKeyCredential(githubApiKey.ApiKey), openAIOptions);
-
-List<ChatMessage> messages = new List<ChatMessage>()
-{
-    new SystemChatMessage(""),
-    new UserChatMessage("What is the capital of France?"),
-};
-
-var requestOptions = new ChatCompletionOptions()
-{
-    Temperature = 1f,
-    TopP = 1f,
-};
-
-var response = client.CompleteChat(messages, requestOptions);
-Console.WriteLine(response.Value.Content[0].Text);
-
-//1. 基本詢問的功能
-// var history = new ChatHistory(systemMessage: "你是一個天氣學家");
-// var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
-
-// Console.WriteLine(await kernel.InvokePromptAsync("你現在使用的模型是甚麼??"));
-
-//1.1 使用 Copilot Model 
+        // Register your services
+        services.AddSingleton<Sample_1_GitHubOpenAI>();
+        services.AddSingleton<Sample_2_SemanticKernel_ChatCompletion>();
+    })
+    .Build();
 
 
-//2. 使用 Function Calling 功能
+// var sample1 = build.Services.GetRequiredService<Sample_1_GitHubOpenAI>();
+// sample1.Execute();
+
+
+var sample2 = build.Services.GetRequiredService<Sample_2_SemanticKernel_ChatCompletion>();
+await sample2.ExecuteAsync();

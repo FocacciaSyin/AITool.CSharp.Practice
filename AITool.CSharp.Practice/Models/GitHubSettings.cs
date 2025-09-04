@@ -13,10 +13,10 @@ public class GitHubSettings
     /// <summary>
     /// GitHub 模型端點
     /// </summary>
-    public string EndPoint { get; set; } 
+    public required string EndPoint { get; set; } 
     
     /// <summary>
     /// 模型名稱
     /// </summary>
-    public string ModelId { get; set; } 
+    public required string ModelId { get; set; } 
 }
