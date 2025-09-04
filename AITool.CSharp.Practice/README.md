@@ -34,3 +34,10 @@
 ```bash
 dotnet run
 ```
+
+
+### 代辦事項
+1. 一般的詢問
+2. 改使用 Github Model
+3. 使用 While + 記憶使用者輸入內容的聊天
+4. 使用 Function Calling
