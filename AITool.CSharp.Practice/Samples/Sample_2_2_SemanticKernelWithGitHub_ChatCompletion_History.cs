@@ -36,8 +36,12 @@ public class Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History(IOptions
         
         // 2. 建立聊天紀錄
         var chat = kernel.GetRequiredService<IChatCompletionService>();
+        
+        // 會記錄所有聊天內容
         var history = new ChatHistory();
-        history.AddSystemMessage("你是一個健身減重教練");
+        history.AddSystemMessage("""
+                                 你是一個健身減重教練，使用者問健身以外的問題不要回答。
+                                 """); // 系統訊息，設定 AI 角色
 
         while (true)
         {
@@ -49,7 +53,7 @@ public class Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History(IOptions
                 break;
             }
             
-            history.AddUserMessage(userInput);
+            history.AddUserMessage(userInput); //使用者輸入
             
             var sb = new StringBuilder();
             var result = chat.GetStreamingChatMessageContentsAsync(history);
@@ -62,7 +66,7 @@ public class Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History(IOptions
             }
             Console.WriteLine();
         
-            history.AddAssistantMessage(sb.ToString());
+            history.AddAssistantMessage(sb.ToString()); // AI 回覆
         }
     }
 }

@@ -5,10 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var build = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((context, config) =>
-    {
-        config.AddUserSecrets<Program>();
-    })
+    .ConfigureAppConfiguration((context, config) => { config.AddUserSecrets<Program>(); })
     .ConfigureServices((context, services) =>
     {
         // Register configuration settings
@@ -24,23 +21,22 @@ var build = Host.CreateDefaultBuilder(args)
     .Build();
 
 // 1. 使用 OpenAI SDK 基本詢問
-// var sample1 = build.Services.GetRequiredService<Sample_1_GitHubOpenAI>();
-// sample1.Execute();
+// build.Services
+//     .GetRequiredService<Sample_1_GitHubOpenAI>()
+//     .Execute();
 
 // 2. 使用 SemanticKernel 範例
-
 // 2.0 使用 SemanticKernel + OpenAI APIKey 基本詢問
-// var sample2_0 = build.Services.GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>();
-// await sample2_0.ExecuteAsync();
+await build.Services
+    .GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>()
+    .ExecuteAsync();
 
 // 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問
-// var sample2_1 = build.Services.GetRequiredService<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
-// await sample2_1.ExecuteAsync();
-
+// await build.Services
+//     .GetRequiredService<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>()
+//     .ExecuteAsync();
 
 // 2.2 使用 SemanticKernel + GitHub Model 聊天紀錄
-var sample2_2 = build.Services.GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
-await sample2_2.ExecuteAsync();
-
-
-
+// await build.Services
+//     .GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>()
+//     .ExecuteAsync();
