@@ -439,3 +439,4 @@ dev-debug.log
 # Task files
 # tasks.json
 # tasks/ 
+AITool.CSharp.Practice/HttpClients/http-client.private.env.json
