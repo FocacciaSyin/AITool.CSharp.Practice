@@ -1,4 +1,5 @@
 using AITool.CSharp.Practice.Models;
+using AITool.CSharp.Practice.Models.Settings;
 using AITool.CSharp.Practice.Samples;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ var build = Host.CreateDefaultBuilder(args)
         services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
         services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
         services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
+        services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
     })
     .Build();
 
@@ -27,9 +29,9 @@ var build = Host.CreateDefaultBuilder(args)
 
 // 2. 使用 SemanticKernel 範例
 // 2.0 使用 SemanticKernel + OpenAI APIKey 基本詢問
-await build.Services
-    .GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>()
-    .ExecuteAsync();
+// await build.Services
+//     .GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>()
+//     .ExecuteAsync();
 
 // 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問
 // await build.Services
@@ -40,3 +42,8 @@ await build.Services
 // await build.Services
 //     .GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>()
 //     .ExecuteAsync();
+
+// 2.3 使用 SemanticKernel + GitHub Model Function Calling 範例
+await build.Services
+    .GetRequiredService<Sample_2_3_SemanticKernel_FunctionCalling>()
+    .ExecuteAsync();

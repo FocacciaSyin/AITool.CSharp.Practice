@@ -35,6 +35,9 @@
 dotnet run
 ```
 
+### 4 OpenAI Model 選擇
+https://platform.openai.com/docs/models/compare
+
 ### 學習歷程
 
 1. 一般的詢問

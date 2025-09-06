@@ -1,6 +1,7 @@
 ﻿using System.ClientModel;
 using System.Text;
 using AITool.CSharp.Practice.Models;
+using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;

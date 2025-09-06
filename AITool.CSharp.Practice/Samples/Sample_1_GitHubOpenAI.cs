@@ -1,5 +1,6 @@
 ﻿using System.ClientModel;
 using AITool.CSharp.Practice.Models;
+using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using OpenAI;
 using OpenAI.Chat;
@@ -9,14 +10,9 @@ namespace AITool.CSharp.Practice.Samples;
 /// <summary>
 /// 使用 OpenAI SDK 基本詢問
 /// </summary>
-public class Sample_1_GitHubOpenAI
+public class Sample_1_GitHubOpenAI(IOptions<GitHubSettings> githubSettings)
 {
-    private readonly GitHubSettings _gitHubSettings;
-
-    public Sample_1_GitHubOpenAI(IOptions<GitHubSettings> githubSettings)
-    {
-        _gitHubSettings = githubSettings.Value;
-    }
+    private readonly GitHubSettings _gitHubSettings = githubSettings.Value;
 
     /// <summary>
     /// GitHub MarketPlace OpenAI 範例

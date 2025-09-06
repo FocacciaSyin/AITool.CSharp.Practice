@@ -1,4 +1,4 @@
-﻿namespace AITool.CSharp.Practice.Models;
+﻿namespace AITool.CSharp.Practice.Models.Settings;
 
 /// <summary>
 /// GitHub 配置設定

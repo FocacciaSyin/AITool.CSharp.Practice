@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace AITool.CSharp.Practice.Models;
+namespace AITool.CSharp.Practice.Models.Settings;
 
 /// <summary>
 /// OpenAI 配置設定
