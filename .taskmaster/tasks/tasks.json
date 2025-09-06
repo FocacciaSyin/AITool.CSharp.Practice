@@ -19,7 +19,9 @@
         "details": "1. 安裝並啟動 PostgreSQL 15+ 容器或主機服務 2. 安裝 PgVector 擴充 (`CREATE EXTENSION IF NOT EXISTS vector;`) 3. 建立 SQL DDL：對話記錄表、向量資料表(UserVectors)、使用者評分表、API 快取表 4. 在 .NET 專案中使用 Npgsql 套件設定連線字串",
         "testStrategy": "- 連線資料庫並執行 `SELECT * FROM pg_extension;` 驗證 PgVector  安裝 - 執行 SQL DDL 檢查資料表是否存在",
         "priority": "high",
-        "dependencies": [1],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": []
       },
@@ -30,7 +32,9 @@
         "details": "1. 在 Kernel 中註冊 ChatCompletionSkill 並設定模型 (GPT-4 或 GPT-3.5-turbo) 2. 定義 FunctionCall 介面及範例方法 StubFunction() 3. 設計 Prompt Template，根據使用者輸入決定呼叫哪個 Function 4. 建立簡易 Console 介面：接收使用者輸入並顯示回應",
         "testStrategy": "- 使用 Mock OpenAI 回傳固定 JSON 測試 FunctionCalling 邏輯 - 在 Console 模擬自然語言查詢，檢查正確觸發 StubFunction",
         "priority": "high",
-        "dependencies": [1],
+        "dependencies": [
+          1
+        ],
         "status": "pending",
         "subtasks": []
       },
@@ -41,7 +45,9 @@
         "details": "1. 註冊 Fugle API Key 並在專案中設定環境變數 2. 使用 HttpClient 實作 IFugleService，包含 `GetStockQuote(symbol, dateRange)` 方法 3. 建立 NL-to-Params 模組：解析使用者輸入 (e.g., “查詢台積電當日股價”)，生成對應 API 參數 4. 將 API 回應 JSON 轉為明確的 Domain Model 並回傳至 ChatCompletion",
         "testStrategy": "- 使用 FakesHttpMessageHandler 測試 IFugleService 回傳 stub 資料 - 將多種自然語句輸入至 NL-to-Params，檢查參數解析正確性",
         "priority": "high",
-        "dependencies": [3],
+        "dependencies": [
+          3
+        ],
         "status": "pending",
         "subtasks": []
       },
@@ -52,14 +58,82 @@
         "details": "1. 在對話引擎中擴充：每次呼叫後將 UserInput、SystemResponse、FunctionCall 結果記錄至對話記錄表 2. 使用 Semantic Kernel 的 TextEmbeddingSkill 將文字轉向量 3. 將向量與 Metadata 存入向量資料表 4. 實作相似性搜尋範例方法以驗證 PgVector 功能",
         "testStrategy": "- 模擬多輪對話並確認對話記錄表的數據正確 - 執行向量相似性查詢並驗證返回結果與預期相符",
         "priority": "medium",
-        "dependencies": [2, 3, 4],
+        "dependencies": [
+          2,
+          3,
+          4
+        ],
         "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Docker 建置 Qdrant 環境並確認連線",
+        "description": "設置 Docker 環境運行 Qdrant 向量資料庫，並測試連線功能 [Updated: 2025/9/6]",
+        "details": "1. 建立 docker-compose.yml 檔案配置 Qdrant 服務\n2. 啟動 Qdrant Docker 容器\n3. 驗證 Qdrant 服務運行狀態\n4. 測試基本 API 連線功能\n5. 確認 Web UI 可正常存取\n<info added on 2025-09-06T14:03:37.474Z>\n6. 使用 `docker run` 指令啟動 Qdrant 容器，並將本機的 `qdrant_storage` 目錄掛載至容器的 `/qdrant/storage` 目錄，以確保資料持久化。\n</info added on 2025-09-06T14:03:37.474Z>",
+        "testStrategy": "",
+        "status": "in-progress",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Semantic Kernel 與 Qdrant 整合",
+        "description": "整合 Semantic Kernel 框架與 Qdrant 向量資料庫",
+        "details": "1. 安裝 Semantic Kernel NuGet 套件\n2. 安裝 Qdrant.Client NuGet 套件\n3. 建立 Qdrant 連線配置類別\n4. 實作基本的向量資料儲存和查詢功能\n5. 建立單元測試驗證整合功能",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          6
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "PDF 資料寫入與搜尋功能",
+        "description": "實作 PDF 檔案資料寫入 Qdrant 並驗證搜尋功能",
+        "details": "1. 安裝 PDF 解析套件 (如 iTextSharp 或 PdfSharp)\n2. 實作 PDF 內容提取功能\n3. 建立文字分塊和向量化處理\n4. 將 PDF 資料寫入 Qdrant 集合\n5. 實作語意搜尋功能並測試結果準確性\n6. 建立範例 PDF 檔案進行測試",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          7
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Markdown 文字檔案處理功能",
+        "description": "實作 Markdown 檔案資料處理和向量化功能",
+        "details": "1. 建立 Markdown 檔案解析器\n2. 實作 Markdown 內容結構化提取 (標題、段落、程式碼區塊等)\n3. 設計適合的文字分塊策略\n4. 實作 Markdown 資料向量化和儲存\n5. 測試 Markdown 內容的搜尋和檢索功能\n6. 支援多種 Markdown 格式和語法",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          7
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "多文章檢索與智能問答系統",
+        "description": "建置多文章檢索系統，實作智能問答功能",
+        "details": "1. 建立多文章資料集 (包含 PDF 和 Markdown 檔案)\n2. 實作批次資料匯入功能\n3. 設計智能問答介面和邏輯\n4. 實作相關性排序和結果過濾\n5. 建立問答測試案例和評估機制\n6. 參考 YouTube 教學資源優化檢索演算法\n7. 實作結果展示和引用追蹤功能",
+        "testStrategy": "",
+        "status": "pending",
+        "dependencies": [
+          8,
+          9
+        ],
+        "priority": "medium",
         "subtasks": []
       }
     ],
     "metadata": {
       "created": "2025-08-28T08:07:35.212Z",
-      "updated": "2025-08-28T09:57:25.137Z",
+      "updated": "2025-09-06T13:54:59.044Z",
       "description": "Tasks for master context"
     }
   }

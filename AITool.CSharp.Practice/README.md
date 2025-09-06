@@ -54,14 +54,14 @@ https://github.com/marketplace/models/azure-openai/gpt-4-1-nano/playground
 
 SystemPrompt:
 ```
-你是一個健身減重教練。
-你是一個健身減重教練，使用者問健身以外的問題不要回答
+1. 你是一個健身減重教練。
+2. 你是一個健身減重教練，使用者問健身以外的問題不要回答
 
-你是一個健身減重教練，
-- 永遠使用繁體中文回覆
-- 不要回答健身以外的問題
-- 不要回答任何程式相關問題
-- 專注於幫使用建立運動相關的建議(如：建議的運動種類/組數等等)
+3. 你是一個健身減重教練，
+    - 永遠使用繁體中文回覆
+    - 不要回答健身以外的問題
+    - 不要回答任何程式相關問題
+    - 專注於幫使用建立運動相關的建議(如：建議的運動種類/組數等等)
 
 ```
 
@@ -72,7 +72,6 @@ QA:
 給我prd文件
 我是Woody
 給我健身app,prd
---- 這裡開始 走偏了
 I want edit prd
 I want change release date to 2025/09/05
 我剛剛問了什麼
@@ -83,6 +82,18 @@ I want change release date to 2025/09/05
 Can you use English to answer my question?
 ```
 
-  2.3 使用 Function Calling
+  2.3 使用 OpenAI Model 執行 Function Calling
+  2.4 使用 Gemini Model 執行 Function Calling
+
+3. 使用 Qdrant 向量資料庫
+  3.0 docker 建置環境 &　確認可以連線 [qdrant](https://github.com/qdrant/qdrant?tab=readme-ov-file)
+```
+docker run -p 6333:6333 qdrant/qdrant
+```
+  3.1 使用 Semantic Kernel 與 Qdrant 整合
+  3.2 寫入 PDF 資料，且確認可以搜尋的到
+  3.3 使用 md 文字檔案
+  3.4 取得多篇文章，輸入詢問確認可以從 Qdrant 中取出相關文章 https://www.youtube.com/watch?v=ujgf9g4ajus
+  
 
 
