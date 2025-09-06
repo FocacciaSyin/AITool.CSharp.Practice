@@ -12,13 +12,14 @@ var build = Host.CreateDefaultBuilder(args)
         // Register configuration settings
         services.Configure<OpenAISettings>(context.Configuration.GetSection("OpenAI"));
         services.Configure<GitHubSettings>(context.Configuration.GetSection("GitHub"));
-
+        services.Configure<GeminiSettings>(context.Configuration.GetSection("Gemini"));
         // Register your services
         services.AddSingleton<Sample_1_GitHubOpenAI>();
         services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
         services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
         services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
         services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
+        services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
     })
     .Build();
 
@@ -43,7 +44,12 @@ var build = Host.CreateDefaultBuilder(args)
 //     .GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>()
 //     .ExecuteAsync();
 
-// 2.3 使用 SemanticKernel + GitHub Model Function Calling 範例
+// 2.3 使用 SemanticKernel + OpenAI API Key +  Function Calling 範例
+// await build.Services
+//     .GetRequiredService<Sample_2_3_SemanticKernel_FunctionCalling>()
+//     .ExecuteAsync();
+
+// 2.4 使用 SemanticKernel + Gemini API Key +  Function Calling 範例
 await build.Services
-    .GetRequiredService<Sample_2_3_SemanticKernel_FunctionCalling>()
+    .GetRequiredService<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>()
     .ExecuteAsync();
