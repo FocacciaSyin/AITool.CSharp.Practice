@@ -20,6 +20,8 @@ var build = Host.CreateDefaultBuilder(args)
         services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
         services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
         services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
+        services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
+        services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
     })
     .Build();
 
@@ -50,6 +52,16 @@ var build = Host.CreateDefaultBuilder(args)
 //     .ExecuteAsync();
 
 // 2.4 使用 SemanticKernel + Gemini API Key +  Function Calling 範例
+// await build.Services
+//     .GetRequiredService<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>()
+//     .ExecuteAsync();
+
+// 3.1 使用 Agent
+// await build.Services
+//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent>()
+//     .ExecuteAsync();
+
+// 3.2 使用 Agent + Plugins
 await build.Services
-    .GetRequiredService<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>()
+    .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
     .ExecuteAsync();

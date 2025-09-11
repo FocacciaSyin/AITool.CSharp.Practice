@@ -24,7 +24,8 @@ public class Sample_2_4_SemanticKernel_FunctionCalling_Gemini(IOptions<GeminiSet
             .AddGoogleAIGeminiChatCompletion(
                 modelId: _geminiSettings.ModelId,
                 apiKey: _geminiSettings.ApiKey,
-                httpClient: HttpLoggerHelper.GetHttpClient(false));
+                httpClient: HttpLoggerHelper.GetHttpClient(true)
+            );
 
         kernelBuilder.Plugins.AddFromType<TimeInformation>();
 
