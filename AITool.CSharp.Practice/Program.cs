@@ -1,4 +1,3 @@
-using AITool.CSharp.Practice.Models;
 using AITool.CSharp.Practice.Models.Settings;
 using AITool.CSharp.Practice.Samples;
 using Microsoft.Extensions.Configuration;

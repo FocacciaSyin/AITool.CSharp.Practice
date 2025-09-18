@@ -3,6 +3,7 @@ using AITool.CSharp.Practice.Models;
 using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.ChatCompletion;
 using OpenAI;
 
 namespace AITool.CSharp.Practice.Samples;
@@ -31,7 +32,7 @@ public class Sample_2_1_SemanticKernelWithGitHub_ChatCompletion(IOptions<GitHubS
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(_gitHubSettings.ModelId, client)
             .Build();
-
+        
         //基本詢問的功能
         Console.WriteLine(await kernel.InvokePromptAsync("你現在使用的模型是甚麼??"));
     }
