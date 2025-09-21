@@ -29,6 +29,8 @@
       <PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0" />
       <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.65.0" />
       <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.64.0-alpha" />
+      <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.64.0-preview" />
+      <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
     </ItemGroup>
 
 </Project>

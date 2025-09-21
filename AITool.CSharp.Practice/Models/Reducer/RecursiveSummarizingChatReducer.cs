@@ -28,14 +28,15 @@ public class RecursiveSummarizingChatReducer:IChatHistoryReducer
             var textToSummarize = string.Join("\n", oldMessages.Select(m => $"{m.Role}: {m.Content}"));
 
             // 呼叫 LLM 生成摘要
+            var chatHistory = new ChatHistory();
+            chatHistory.AddSystemMessage("請將以下對話壓縮成摘要，保留關鍵需求、決策與結論，限制 150 字內：");
+            chatHistory.AddUserMessage(textToSummarize);
+            
             var summary = await _chatService.GetChatMessageContentAsync(
-                new ChatHistory
-                {
-                    new ChatMessageContent(AuthorRole.System, "請將以下對話壓縮成摘要，保留關鍵需求、決策與結論，限制 150 字內："),
-                    new ChatMessageContent(AuthorRole.User, textToSummarize)
-                },
-                _kernel,
-                ct
+                chatHistory,
+                executionSettings: null,
+                kernel: _kernel,
+                cancellationToken: ct
             );
 
             // 移除舊訊息
@@ -66,6 +67,8 @@ public class RecursiveSummarizingChatReducer:IChatHistoryReducer
 
     public async Task<IEnumerable<ChatMessageContent>?> ReduceAsync(IReadOnlyList<ChatMessageContent> chatHistory, CancellationToken cancellationToken = new ())
     {
-        throw new NotImplementedException();
+        var history = new ChatHistory(chatHistory);
+        var reduced = await ReduceAsync(history, cancellationToken);
+        return reduced;
     }
 }

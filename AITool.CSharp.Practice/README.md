@@ -144,6 +144,49 @@ podman run -d -p 6333:6333 qdrant/qdrant
 
 ---
 
+### 5. 混合式股票顧問 Agent
+
+#### 5.1 🚀 混合式股票顧問系統
+
+結合 MSSQL 數據存取與 RAG 投資策略知識庫的智能台股大盤分析系統。
+
+**功能特色：**
+- 專業台股大盤分析師角色
+- MSSQL Plugin 股價數據查詢
+- 投資策略知識庫（布林帶、移動平均線、RSI、市場情緒）
+- 混合式分析：數據 + 策略的專業建議
+- 風險控制與投資警語
+
+**詳細說明：** [混合式股票顧問 Agent 文檔](./HYBRID_STOCK_ADVISOR.md)
+
+#### 4.0 Docker 建置環境 & 確認連線
+
+使用 Docker 建立 [Qdrant](https://github.com/qdrant/qdrant) 向量資料庫環境：
+
+```bash
+podman run -d -p 6333:6333 qdrant/qdrant
+```
+
+#### 4.1 使用 Semantic Kernel 與 Qdrant 整合
+
+整合 Semantic Kernel 與 Qdrant 向量資料庫。
+
+#### 4.2 寫入 PDF 資料，且確認可以搜尋
+
+實作 PDF 文件的向量化與搜尋功能。
+
+#### 4.3 使用 md 文字檔案
+
+處理 Markdown 格式的文檔向量化。
+
+#### 4.4 取得多篇文章，輸入詢問確認可以從 Qdrant 中取出相關文章
+
+實作多文檔檢索功能。
+
+**參考資料：** [相關教學影片](https://www.youtube.com/watch?v=ujgf9g4ajus)
+
+---
+
 ## 🔗 相關連結
 
 - [Microsoft Semantic Kernel 官方文件](https://learn.microsoft.com/en-us/semantic-kernel/)
