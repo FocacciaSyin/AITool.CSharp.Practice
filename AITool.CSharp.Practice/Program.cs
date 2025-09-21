@@ -24,6 +24,7 @@ var build = Host.CreateDefaultBuilder(args)
         services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
         services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
         services.AddSingleton<Sample_5_1_HybridStockAdvisorAgent>();
+        services.AddSingleton<Sample_5_2_HybridStockAdvisorDemo>();
     })
     .Build();
 
@@ -69,6 +70,11 @@ var build = Host.CreateDefaultBuilder(args)
 //     .ExecuteAsync();
 
 // 5.1 混合式股票顧問 Agent
+// await build.Services
+//     .GetRequiredService<Sample_5_1_HybridStockAdvisorAgent>()
+//     .ExecuteAsync();
+
+// 5.2 混合式股票顧問 Agent Demo (無需 API 連接)
 await build.Services
-    .GetRequiredService<Sample_5_1_HybridStockAdvisorAgent>()
+    .GetRequiredService<Sample_5_2_HybridStockAdvisorDemo>()
     .ExecuteAsync();
