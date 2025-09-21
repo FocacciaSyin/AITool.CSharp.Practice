@@ -18,7 +18,8 @@
 
 #### appsettings.Development.json
 
-修改 `appsettings.Development.json` 檔案，將 `ApiKey` 替換為你的 OpenAI API 金鑰。建議使用 Secret Manager 來管理敏感資訊。
+修改 `appsettings.Development.json` 檔案，將 `ApiKey` 替換為你的 OpenAI API 金鑰。
+建議使用 Secret Manager 來管理敏感資訊。
 
 ```json
 {
@@ -32,111 +33,71 @@
 ### 3. 執行專案
 
 ```bash
-dotnet run
+dotnet run --project AITool.CSharp.Practice
 ```
 
 ### 4. OpenAI Model 選擇
 
 請參考 [OpenAI Models 比較文件](https://platform.openai.com/docs/models/compare)
 
-## 📚 學習歷程
+# 📝 TODO - Semantic Kernel 學習歷程規劃
 
-### 1. 一般的詢問
+## 1. 基礎
 
-#### 1.1 使用 OpenAI SDK
+- [x] 1.1 使用 OpenAI SDK (熟悉 API 呼叫)
+- [x] 1.2 建立簡單聊天範例
+- [ ] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算 Token 數量
 
-基本的 OpenAI SDK 整合與使用。
+## 2. Semantic Kernel 基礎
 
-### 2. 使用 Semantic Kernel
+- [x] 2.0 聊天整合 (OpenAI → GitHub Model)
+- [x] 2.1 聊天 (Conversation)
+- [x] 2.2 聊天 記憶歷史對話 (Conversation History)
+  - [x] 2.2.1 Reducer (多輪對話總結 / 減量)
+    - [x] 2.2.1.1 保留前 x 次對話 (Truncation)
+    - [x] 2.2.1.2 摘要前 x 次對話 (Summarization)
+- [x] 2.3 OpenAI Function Calling
+- [X] 2.4 Gemini Function Calling
 
-#### 2.0 基本聊天 - 使用 OpenAI
+### 2.2 / 2.2.1 對應範例說明
 
-初步整合 Semantic Kernel 與 OpenAI 服務。
+| 功能 | 檔案 | 說明 |
+|------|------|------|
+| 基本聊天 + 歷史 | `Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History.cs` | 純記錄所有訊息，不做減量。 |
+| Reducer：截斷 + 摘要 | `Sample_2_2_1_1SemanticKernelWithGitHub_ChatCompletion_Reducer.cs` | 示範 2 種策略：保留最近 N 輪、遞迴摘要舊訊息。 |
+| 遞迴摘要邏輯 | `RecursiveSummarizingChatReducer.cs` | 自訂 Reducer，超過閾值後壓縮舊訊息為 System 摘要。 |
 
-#### 2.1 改使用 GitHub Model
+> 後續可再加上：Auto 模式（視長度自動選擇截斷或摘要）、以實際 Token 計數替代字元估算、可配置批次大小、保留關鍵角色（例如 Function 呼叫的結果）。
 
-將服務提供者從 OpenAI 切換至 GitHub Model。
+## 3. Agent 設計
 
-#### 2.2 使用 While + 記憶使用者輸入內容的聊天
+- [ ] 3.1 基本 Agent
+- [ ] 3.1 基本 Agent + Function Calling
 
-實作具有記憶功能的連續對話系統。
+## 5. 記憶 (Memory)
 
-**範例：** `Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History.cs`
+- [ ] 5.0 短期記憶 (會話上下文)
+- [ ] 5.1 長期記憶 (Qdrant / MSSQL)
+- [ ] 5.2 與登入系統整合 (辨識使用者)
 
-📝 **小提示：** 可以到 [GitHub Playground](https://github.com/marketplace/models/azure-openai/gpt-4-1-nano/playground)
-測試模型設定
+## 6. RAG (檔案 & 外部知識)
 
-#### System Prompt 範例
+- [ ] 6.0 建立 Qdrant Docker 環境
+- [ ] 6.1 整合 Semantic Kernel + Qdrant
+- [ ] 6.2 PDF → 向量化 & 查詢
+- [ ] 6.3 Markdown → 向量化
+- [ ] 6.4 股票新聞 RAG 檢索
 
-```
-1. 你是一個健身減重教練。
+## 7. 股票顧問應用
 
-2. 你是一個健身減重教練，使用者問健身以外的問題不要回答
-
-3. 你是一個健身減重教練，
-   - 永遠使用繁體中文回覆
-   - 不要回答健身以外的問題
-   - 不要回答任何程式相關問題
-   - 專注於幫使用建立運動相關的建議(如：建議的運動種類/組數等等)
-```
-
-#### 測試用 QA 範例
-
-```
-我想買房
-我要寫健身app,給我範例程式，建立一個簡易的訓練計劃靜態html
-給我prd文件
-我是Woody
-給我健身app,prd
-I want edit prd
-I want change release date to 2025/09/05
-我剛剛問了什麼
-
-我想開健身房，你可以推薦我地點嗎?
-那我住在大安區 給我最推薦的地段
-
-Can you use English to answer my question?
-```
-
-#### 2.3 使用 OpenAI Model 執行 Function Calling
-
-實作 OpenAI 的 Function Calling 功能。
-
-#### 2.4 使用 Gemini Model 執行 Function Calling
-
-使用 Google Gemini 模型進行 Function Calling。
-
-### 3. Semantic Kernel Agent
-
-參考：https://github.com/microsoft/semantic-kernel?tab=readme-ov-file#basic-agent---net
-
-#### 3.1 建立 Agent 基本聊天
-
-#### 3.1 Agent + Function Calling(Plugins)
-
-### 4. 使用 Qdrant 向量資料庫
-
-#### 4.0 Docker 建置環境 & 確認連線
-
-使用 Docker 建立 [Qdrant](https://github.com/qdrant/qdrant) 向量資料庫環境：
-
-```bash
-podman run -d -p 6333:6333 qdrant/qdrant
-```
-
-#### 4.1 使用 Semantic Kernel 與 Qdrant 整合
-
-整合 Semantic Kernel 與 Qdrant 向量資料庫。
-
-#### 4.2 寫入 PDF 資料，且確認可以搜尋
-
-實作 PDF 文件的向量化與搜尋功能。
-
-#### 4.3 使用 md 文字檔案
-
-處理 Markdown 格式的文檔向量化。
-
-#### 4.4 取得多篇文章，輸入詢問確認可以從 Qdrant 中取出相關文章
+- [ ] 7.0 混合式 Agent
+    - [ ] 股票顧問 Agent (讀取 MSSQL 大盤資料)
+    - [ ] 新聞檢索 Agent (RAG + Qdrant)
+    - [ ] 使用者對話 Agent (整合 system prompt + 記憶)
+- [ ] 7.1 MSSQL → Agent 自動讀取每日收盤價
+- [ ] 7.2 移動平均線策略 (回測)
+- [ ] 7.3 布林帶策略 (回測)
+- [ ] 7.4 混合式決策 Agent (技術指標 + 新聞情緒)
 
 實作多文檔檢索功能。
 

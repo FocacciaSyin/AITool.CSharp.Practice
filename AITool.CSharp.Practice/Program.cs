@@ -16,6 +16,8 @@ var build = Host.CreateDefaultBuilder(args)
         services.AddSingleton<Sample_1_GitHubOpenAI>();
         services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
         services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
+        services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
+        services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
         services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
         services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
         services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
@@ -39,6 +41,15 @@ var build = Host.CreateDefaultBuilder(args)
 // await build.Services
 //     .GetRequiredService<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>()
 //     .ExecuteAsync();
+
+await build.Services
+    .GetRequiredService<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>()
+    .ExecuteAsync();
+
+// await build.Services
+//     .GetRequiredService<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>()
+//     .ExecuteAsync();
+
 
 // 2.2 使用 SemanticKernel + GitHub Model 聊天紀錄
 // await build.Services
