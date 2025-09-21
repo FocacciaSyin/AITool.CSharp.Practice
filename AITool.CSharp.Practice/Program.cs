@@ -12,6 +12,8 @@ var build = Host.CreateDefaultBuilder(args)
         services.Configure<OpenAISettings>(context.Configuration.GetSection("OpenAI"));
         services.Configure<GitHubSettings>(context.Configuration.GetSection("GitHub"));
         services.Configure<GeminiSettings>(context.Configuration.GetSection("Gemini"));
+        services.Configure<DatabaseSettings>(context.Configuration.GetSection("Database"));
+        services.Configure<QdrantSettings>(context.Configuration.GetSection("Qdrant"));
         // Register your services
         services.AddSingleton<Sample_1_GitHubOpenAI>();
         services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
@@ -21,6 +23,7 @@ var build = Host.CreateDefaultBuilder(args)
         services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
         services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
         services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
+        services.AddSingleton<Sample_5_1_HybridStockAdvisorAgent>();
     })
     .Build();
 
@@ -61,6 +64,11 @@ var build = Host.CreateDefaultBuilder(args)
 //     .ExecuteAsync();
 
 // 3.2 使用 Agent + Plugins
+// await build.Services
+//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
+//     .ExecuteAsync();
+
+// 5.1 混合式股票顧問 Agent
 await build.Services
-    .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
+    .GetRequiredService<Sample_5_1_HybridStockAdvisorAgent>()
     .ExecuteAsync();
