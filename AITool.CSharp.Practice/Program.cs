@@ -42,6 +42,12 @@ var build = Host.CreateDefaultBuilder(args)
 //     .GetRequiredService<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>()
 //     .ExecuteAsync();
 
+// 2.2 使用 SemanticKernel + GitHub Model 聊天紀錄
+// await build.Services
+//     .GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>()
+//     .ExecuteAsync();
+
+// 2.2.1 使用 SemanticKernel + GitHub Model 聊天紀錄 + Reducer 截斷只保留前x次訊息 範例
 await build.Services
     .GetRequiredService<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>()
     .ExecuteAsync();
@@ -50,11 +56,6 @@ await build.Services
 //     .GetRequiredService<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>()
 //     .ExecuteAsync();
 
-
-// 2.2 使用 SemanticKernel + GitHub Model 聊天紀錄
-// await build.Services
-//     .GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>()
-//     .ExecuteAsync();
 
 // 2.3 使用 SemanticKernel + OpenAI API Key +  Function Calling 範例
 // await build.Services
@@ -72,6 +73,6 @@ await build.Services
 //     .ExecuteAsync();
 
 // 3.2 使用 Agent + Plugins
-await build.Services
-    .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
-    .ExecuteAsync();
+// await build.Services
+//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
+//     .ExecuteAsync();

@@ -8,82 +8,71 @@ using AITool.CSharp.Practice.Models.Settings;
 namespace AITool.CSharp.Practice.Samples;
 
 /// <summary>
-/// 2.2.1.1 Reducer 範例（Truncation 單一示例）
+/// 2.2.1.1 Reducer 截斷 (Truncation) 策略示範
 /// 說明：
-/// 僅示範『截斷 (Truncation)』策略：保留最近 N 輪 (User + Assistant) 對話，System 訊息全部保留。
-/// 不包含摘要邏輯（若需摘要請參考 Sample_2_2_1_2_*_Reducer_Summarization）。
+/// 僅示範『截斷 (Truncation)』策略：
+/// 使用 Microsoft.SemanticKernel.ChatCompletion 原生 ChatHistoryTruncationReducer 策略
 /// </summary>
 public class Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation(IOptions<GitHubSettings> githubSettings)
 {
+    // GitHub OpenAI 相容模型設定（由 DI 注入）
     private readonly GitHubSettings _gitHubSettings = githubSettings.Value;
 
+    /// <summary>
+    /// 執行截斷 (Truncation) Reducer 示範流程
+    /// </summary>
+    /// <param name="ct">取消作業用的 CancellationToken。</param>
     public async Task ExecuteAsync(CancellationToken ct = default)
     {
-        // 建立 GitHub Models 相容 OpenAIClient（使用 GitHub Token + Endpoint）
+        // 1. 建立 GitHub Models 相容的 OpenAIClient（使用 GitHub Token + Endpoint）
+        //    GitHub Models 對外提供 OpenAI 相容協議，因此可直接使用 OpenAIClient。
         var client = new OpenAIClient(
             credential: new ApiKeyCredential(_gitHubSettings.ApiKey),
             options: new OpenAIClientOptions { Endpoint = new Uri(_gitHubSettings.EndPoint) }
         );
 
-        // 建立 Kernel 並註冊 ChatCompletion 服務
+        // 2. 建立 Kernel 並註冊 ChatCompletion 服務
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(_gitHubSettings.ModelId, client)
             .Build();
 
-        var chatService = kernel.GetRequiredService<IChatCompletionService>();
+        // 3. 取得 ChatCompletion 服務實例
+        var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-        Console.WriteLine("=== 截斷範例：僅保留最近 N 輪對話 ===\n");
-        
-        var truncHistory = new ChatHistory();
-        truncHistory.AddSystemMessage("你是一個簡短回覆的助理。此範例僅示範『截斷』策略，不做摘要。");
+        // 4. 建立『截斷』Reducer，targetCount 表示要保留的最近 N 輪 , 注意 SystemMessage 不論在何時被加入，都會佔一個位子 
+        var reducer = new ChatHistoryTruncationReducer(targetCount: 5);
 
-        for (int i = 1; i <= 6; i++)
+        int totalTokenCount = 0;
+
+        // 5. 建立原始對話歷史
+        var chatHistory = new ChatHistory();
+        chatHistory.AddSystemMessage("你是一個簡短回覆的助理。(不會被截斷)");
+
+        // 模擬多輪對話
+        for (int i = 1; i <= 10; i++)
         {
-            truncHistory.AddUserMessage($"使用者問題 #{i}: 請示範第 {i} 次問題");
-            truncHistory.AddAssistantMessage($"助理回覆 #{i}: 這是回覆 {i}");
+            chatHistory.AddUserMessage($"使用者問題 #{i}: 請示範第 {i} 次問題");
+            chatHistory.AddAssistantMessage($"助理回覆 #{i}: 這是回覆 {i}");
         }
 
-        Console.WriteLine("[截斷前] 完整歷史：");
-        PrintHistory(truncHistory);
+        chatHistory.AddSystemMessage("這是第二段SystemPrompt(不會被截斷)");
 
-        int roundsToKeep = 2; // 要保留的最近輪數
-        TruncateHistory(truncHistory, roundsToKeep);
-
-        Console.WriteLine($"\n[截斷後] 僅保留最近 {roundsToKeep} 輪：");
-        PrintHistory(truncHistory);
-
-        Console.WriteLine("\n=== 範例結束（Truncation）===");
-    }
-
-    /// <summary>
-    /// 截斷策略：僅保留最近 N 輪 (User+Assistant) 對話；System 訊息全部保留。
-    /// 為簡化：假設對話歷史是按時間順序 append。
-    /// </summary>
-    private static void TruncateHistory(ChatHistory history, int roundsToKeep)
-    {
-        if (roundsToKeep <= 0) { history.Clear(); return; }
-        // 取出 System 與非 System 訊息（避免把角色定義刪掉）
-        var systemMessages = history.Where(m => m.Role == AuthorRole.System).ToList();
-        var nonSystem = history.Where(m => m.Role != AuthorRole.System).ToList();
-
-        // 每輪 2 則（User + Assistant），計算要保留的總數
-        int keepCount = Math.Min(nonSystem.Count, roundsToKeep * 2);
-        var toKeep = nonSystem.Skip(Math.Max(0, nonSystem.Count - keepCount)).ToList();
-
-        history.Clear();
-        // 先放回 System，再放最近對話
-        foreach (var s in systemMessages) history.Add(s);
-        foreach (var m in toKeep) history.Add(m);
-    }
-
-    /// <summary>
-    /// 輸出目前 ChatHistory 內容（依順序）。
-    /// </summary>
-    private static void PrintHistory(ChatHistory history)
-    {
-        foreach (var msg in history)
+        // 6. 進行截斷
+        var reducedMessages = await reducer.ReduceAsync(chatHistory, ct);
+        if (reducedMessages is not null)
         {
-            Console.WriteLine($"[{msg.Role}] {msg.Content}");
+            // 以截斷後的訊息重新建立 ChatHistory，後續用於送出模型請求
+            chatHistory = new ChatHistory(reducedMessages);
         }
+
+        Console.WriteLine("=== 截斷後的對話歷史 ===");
+        foreach (var reducedChatHistory in chatHistory)
+        {
+            Console.WriteLine($"{reducedChatHistory.Role}: {reducedChatHistory.Content}");
+        }
+
+        //呼叫 ChatCompletion 服務取得結果
+        var response = await chatCompletionService.GetChatMessageContentsAsync(chatHistory);
+        Console.WriteLine(response[0].Content);
     }
 }

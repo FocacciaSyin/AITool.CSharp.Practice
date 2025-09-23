@@ -11,7 +11,7 @@
 - 建置：`dotnet build AITool.CSharp.Practice/AITool.CSharp.Practice.csproj`（預設 net8.0）。
 - 執行：`dotnet run --project AITool.CSharp.Practice/AITool.CSharp.Practice.csproj`，會根據 `Program.cs` 切換範例。
 - 格式化：`dotnet format`（需先安裝 dotnet-format 全域工具）。
-- 測試：如需自動化測試，請於專案根目錄旁建立 `AITool.CSharp.Practice.Tests`，目標 net8.0，建議用 xunit。
+- 測試：如需自動化測試，請於專案根目錄旁建立 `AITool.CSharp.Practice.Tests`，目標 net8.0，使用 xunit。
 
 ## 命名與程式風格
 - 四空白縮排，公開成員 PascalCase，私有欄位與區域變數 camelCase。
