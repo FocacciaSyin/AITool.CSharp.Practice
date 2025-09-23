@@ -1,4 +1,6 @@
 using System.ClientModel;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
@@ -9,69 +11,74 @@ using AITool.CSharp.Practice.Models.Reducer;
 namespace AITool.CSharp.Practice.Samples;
 
 /// <summary>
-/// 2.2.1.2 Reducer 範例（Summarization 單一示例）
+/// 2.2.1.2 Reducer 總結 (Summarization) 策略示範
 /// 說明：
-/// 僅示範『摘要 (Summarization)』策略：當歷史過長時，將較舊訊息彙整為 System 摘要，以節省 Token 又保留語意。
-/// 搭配自訂的 RecursiveSummarizingChatReducer。
-/// 不包含截斷邏輯（若需截斷請參考 Sample_2_2_1_1_*_Reducer_Truncation）。
+/// 僅示範『總結 (Summarization)』策略：
+/// 使用 Microsoft.SemanticKernel.ChatCompletion 原生 ChatHistorySummarizationReducer 策略
 /// </summary>
 public class Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization(IOptions<GitHubSettings> githubSettings)
 {
+    // GitHub OpenAI 相容模型設定（由 DI 注入）
     private readonly GitHubSettings _gitHubSettings = githubSettings.Value;
 
+    /// <summary>
+    /// 執行截斷 (Truncation) Reducer 示範流程
+    /// </summary>
+    /// <param name="ct">取消作業用的 CancellationToken。</param>
     public async Task ExecuteAsync(CancellationToken ct = default)
     {
-        // 建立 GitHub Models 相容 OpenAIClient（使用 GitHub Token + Endpoint）
+        // 1. 建立 GitHub Models 相容的 OpenAIClient（使用 GitHub Token + Endpoint）
+        //    GitHub Models 對外提供 OpenAI 相容協議，因此可直接使用 OpenAIClient。
         var client = new OpenAIClient(
             credential: new ApiKeyCredential(_gitHubSettings.ApiKey),
             options: new OpenAIClientOptions { Endpoint = new Uri(_gitHubSettings.EndPoint) }
         );
 
-        // 建立 Kernel 並註冊 ChatCompletion 服務
+        // 2. 建立 Kernel 並註冊 ChatCompletion 服務
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(_gitHubSettings.ModelId, client)
             .Build();
 
-        var chatService = kernel.GetRequiredService<IChatCompletionService>();
+        // 3. 取得 ChatCompletion 服務實例
+        var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-        Console.WriteLine("=== 摘要範例：將舊對話壓縮為摘要 ===\n");
+        // 4. 建立『總結』 ，targetCount 表示要保留的最近 N 輪 ，
+        // thresholdCount 表示超過多少則訊息才會進行總結
+        
+        var reducer_2_10 = new ChatHistorySummarizationReducer(chatCompletionService, targetCount: 2, thresholdCount: 10); // 超過總訊息數會回傳 null
+        
+        // targetCount = 3 > System(1) + Assistant(1) + User(2) 
+        var reducer_3_5 = new ChatHistorySummarizationReducer(chatCompletionService, targetCount: 3, thresholdCount: 5);
+        // var reducer_10 = new ChatHistorySummarizationReducer(chatCompletionService, targetCount: 3, thresholdCount: 9);
 
-        var history = new ChatHistory();
-        history.AddSystemMessage("你是一個健身教練，只能回答健身與減重相關內容。");
+        int totalTokenCount = 0;
 
-        // 模擬較長歷史，便於觸發摘要
-        for (int i = 1; i <= 12; i++)
+        // 5. 建立原始對話歷史
+        var chatHistory = new ChatHistory();
+        chatHistory.AddSystemMessage("你是一個氣象專家。"); //壓縮後只會保留第一個
+        chatHistory.AddSystemMessage("不能回答程式相關的問題，不知道就直接說不知道，總結使用繁體中文");
+
+        chatHistory.AddUserMessage("哈囉，我是 秋雨新.");
+        chatHistory.AddUserMessage("今天天氣怎樣？");
+        chatHistory.AddUserMessage("我需要帶雨傘嗎？");
+        chatHistory.AddUserMessage("幫我推薦三家附近的咖啡廳。");
+        chatHistory.AddUserMessage("哪一家有 Wi-Fi？");
+        chatHistory.AddUserMessage("我想買新北市的房子，請問房價怎麼樣？");
+        chatHistory.AddUserMessage("高雄的交通方便嗎");
+
+        // 5. 進行總結
+        var reducedMessages_2_10 = await reducer_2_10.ReduceAsync(chatHistory, ct);
+        var reducedMessages_3_5 = await reducer_3_5.ReduceAsync(chatHistory, ct);
+
+        if (reducedMessages_2_10 is not null)
         {
-            history.AddUserMessage($"使用者：這是第 {i} 次提問，請給我一點健身/飲食建議 (編號 {i})");
-            history.AddAssistantMessage($"助理：這是第 {i} 次回覆，提供一些訓練或營養面向的說明與細節，可能稍微冗長以增加內容長度。");
+            foreach (var msg in reducedMessages_2_10)
+            {
+                Console.WriteLine($"[{msg.Role}] {msg.Content}");
+            }
         }
 
-        Console.WriteLine("[摘要前] 歷史訊息（部分可能很長）：");
-        PrintHistory(history);
-
-        // 建立摘要 Reducer（目前採用字元長度近似，可後續換成 Token 版）
-        var reducer = new RecursiveSummarizingChatReducer(maxTokens: 500, kernel: kernel, chatService: chatService);
-
-        Console.WriteLine("\n執行摘要 Reducer...\n");
-        try
-        {
-            var reduced = await reducer.ReduceAsync(history, ct);
-            Console.WriteLine("[摘要後] 歷史訊息（前方可能插入摘要 System 訊息）：");
-            PrintHistory(reduced);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Reducer 呼叫失敗（可能是 API Key/網路問題）：{ex.Message}");
-            Console.WriteLine("此情況下僅示範流程，實際摘要需模型請求成功。");
-        }
-
-        Console.WriteLine("\n=== 範例結束（Summarization）===");
-    }
-
-    // 移除截斷相關方法，僅保留輸出工具
-    private static void PrintHistory(ChatHistory history)
-    {
-        foreach (var msg in history)
+        foreach (var msg in reducedMessages_3_5)
         {
             Console.WriteLine($"[{msg.Role}] {msg.Content}");
         }

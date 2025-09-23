@@ -50,12 +50,11 @@ var build = Host.CreateDefaultBuilder(args)
 // 2.2.1 使用 SemanticKernel + GitHub Model 聊天紀錄 + Reducer 截斷只保留前x次訊息 範例
 await build.Services
     .GetRequiredService<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>()
-    .ExecuteAsync();
+     .ExecuteAsync();
 
 // await build.Services
 //     .GetRequiredService<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>()
 //     .ExecuteAsync();
-
 
 // 2.3 使用 SemanticKernel + OpenAI API Key +  Function Calling 範例
 // await build.Services

@@ -39,7 +39,7 @@ public class Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Trun
         // 3. 取得 ChatCompletion 服務實例
         var chatCompletionService = kernel.GetRequiredService<IChatCompletionService>();
 
-        // 4. 建立『截斷』Reducer，targetCount 表示要保留的最近 N 輪 , 注意 SystemMessage 不論在何時被加入，都會佔一個位子 
+        // 4. 建立『截斷』Reducer，targetCount 表示要保留的最近 N 輪 , System 只會保留一個
         var reducer = new ChatHistoryTruncationReducer(targetCount: 5);
 
         int totalTokenCount = 0;
@@ -47,6 +47,7 @@ public class Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Trun
         // 5. 建立原始對話歷史
         var chatHistory = new ChatHistory();
         chatHistory.AddSystemMessage("你是一個簡短回覆的助理。(不會被截斷)");
+        chatHistory.AddSystemMessage("這是第二段SystemPrompt(注意：會被截斷)");
 
         // 模擬多輪對話
         for (int i = 1; i <= 10; i++)
@@ -55,7 +56,6 @@ public class Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Trun
             chatHistory.AddAssistantMessage($"助理回覆 #{i}: 這是回覆 {i}");
         }
 
-        chatHistory.AddSystemMessage("這是第二段SystemPrompt(不會被截斷)");
 
         // 6. 進行截斷
         var reducedMessages = await reducer.ReduceAsync(chatHistory, ct);
