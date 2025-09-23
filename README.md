@@ -120,3 +120,4 @@ dotnet run --project AITool.CSharp.Practice
 - [OpenAI API 文件](https://platform.openai.com/docs)
 - [Qdrant 向量資料庫](https://qdrant.tech/)
 - [GitHub Models Playground](https://github.com/marketplace/models)
+ 

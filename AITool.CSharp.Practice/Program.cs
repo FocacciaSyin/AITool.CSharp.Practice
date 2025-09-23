@@ -3,39 +3,54 @@ using AITool.CSharp.Practice.Samples;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CSnakes.Runtime;
 
-var build = Host.CreateDefaultBuilder(args)
-    .ConfigureAppConfiguration((context, config) => { config.AddUserSecrets<Program>(); })
-    .ConfigureServices((context, services) =>
-    {
-        // Register configuration settings
-        services.Configure<OpenAISettings>(context.Configuration.GetSection("OpenAI"));
-        services.Configure<GitHubSettings>(context.Configuration.GetSection("GitHub"));
-        services.Configure<GeminiSettings>(context.Configuration.GetSection("Gemini"));
-        // Register your services
-        services.AddSingleton<Sample_1_GitHubOpenAI>();
-        services.AddSingleton<Sample_1_4_TokenCounting>();
-        services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
-        services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
-        services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
-        services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
-        services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
-        services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
-        services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
-        services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
-        services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
-    })
-    .Build();
+var builder = Host.CreateApplicationBuilder(args);
+builder.Configuration.AddUserSecrets<Program>();
+
+// Register configuration settings
+builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
+builder.Services.Configure<GitHubSettings>(builder.Configuration.GetSection("GitHub"));
+builder.Services.Configure<GeminiSettings>(builder.Configuration.GetSection("Gemini"));
+
+// Configure CSnakes Python environment
+var home = Path.Join(Directory.GetCurrentDirectory(), "Python");
+builder.Services
+    .WithPython()
+    .WithHome(home)
+    .WithVirtualEnvironment(Path.Join(home, ".venv"))
+    .WithPipInstaller();
+
+// Register your services
+builder.Services.AddSingleton<Sample_1_GitHubOpenAI>();
+builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
+builder.Services.AddSingleton<Sample_1_4_TokenCounting>();
+builder.Services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
+builder.Services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
+builder.Services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
+builder.Services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
+builder.Services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
+builder.Services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
+builder.Services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
+builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
+builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
+
+var build = builder.Build();
 
 // 1. 使用 OpenAI SDK 基本詢問
 // build.Services
 //     .GetRequiredService<Sample_1_GitHubOpenAI>()
 //     .Execute();
 
-// 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
+// 1.3 使用 CSnakes + tiktoken 計算 Token 數量
 await build.Services
-    .GetRequiredService<Sample_1_4_TokenCounting>()
+    .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
     .ExecuteAsync();
+
+// 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
+// await build.Services
+//     .GetRequiredService<Sample_1_4_TokenCounting>()
+//     .ExecuteAsync();
 
 // 2. 使用 SemanticKernel 範例
 // 2.0 使用 SemanticKernel + OpenAI APIKey 基本詢問
