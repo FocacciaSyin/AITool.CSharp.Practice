@@ -8,11 +8,19 @@
 
 專案已包含以下套件：
 
-- `Microsoft.SemanticKernel` (v1.15.0)
+- `Microsoft.SemanticKernel` (v1.64.0)
+- `Microsoft.SemanticKernel.Agents.Core` (v1.65.0)
+- `Microsoft.SemanticKernel.Connectors.Google` (v1.64.0-alpha)
+- `Microsoft.ML.Tokenizers` (v1.0.0)
+- `Microsoft.ML.Tokenizers.Data.Cl100kBase` (v1.0.0)
+- `Microsoft.ML.Tokenizers.Data.O200kBase` (v1.0.0)
 - `Microsoft.Extensions.Configuration` (v9.0.8)
-- `Microsoft.Extensions.Configuration.Json` (v8.0.0)
-- `Microsoft.Extensions.Configuration.EnvironmentVariables` (v8.0.0)
-- `Microsoft.Extensions.Logging.Console` (v9.0.7)
+- `Microsoft.Extensions.Configuration.Json` (v9.0.8)
+- `Microsoft.Extensions.Configuration.EnvironmentVariables` (v9.0.8)
+- `Microsoft.Extensions.Configuration.UserSecrets` (v9.0.8)
+- `Microsoft.Extensions.DependencyInjection` (v9.0.8)
+- `Microsoft.Extensions.Hosting` (v9.0.8)
+- `Microsoft.Extensions.Logging.Console` (v9.0.8)
 
 ### 2. 設定 OpenAI API 金鑰
 
@@ -25,7 +33,7 @@
 {
   "OpenAI": {
     "ApiKey": "透過 Secret Manager 設定",
-    "Model": "gpt-3.5-turbo"
+    "Model": "gpt-4.1-nano"
   }
 }
 ```
@@ -47,7 +55,7 @@ dotnet run --project AITool.CSharp.Practice
 - [x] 1.1 使用 OpenAI SDK (熟悉 API 呼叫)
 - [x] 1.2 建立簡單聊天範例
 - [ ] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算 Token 數量
-- [ ] 1.4 計算 Token 數量 SK 官方使用 Microsoft.ML.Tokenizers
+- [x] 1.4 計算 Token 數量 SK 官方使用 Microsoft.ML.Tokenizers (支援 GPT-4.1-nano, GPT-4, GPT-4o)
 
 ## 2. Semantic Kernel 基礎
 

@@ -14,6 +14,7 @@ var build = Host.CreateDefaultBuilder(args)
         services.Configure<GeminiSettings>(context.Configuration.GetSection("Gemini"));
         // Register your services
         services.AddSingleton<Sample_1_GitHubOpenAI>();
+        services.AddSingleton<Sample_1_4_TokenCounting>();
         services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
         services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
         services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
@@ -30,6 +31,11 @@ var build = Host.CreateDefaultBuilder(args)
 // build.Services
 //     .GetRequiredService<Sample_1_GitHubOpenAI>()
 //     .Execute();
+
+// 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
+await build.Services
+    .GetRequiredService<Sample_1_4_TokenCounting>()
+    .ExecuteAsync();
 
 // 2. 使用 SemanticKernel 範例
 // 2.0 使用 SemanticKernel + OpenAI APIKey 基本詢問
@@ -48,9 +54,9 @@ var build = Host.CreateDefaultBuilder(args)
 //     .ExecuteAsync();
 
 // 2.2.1 使用 SemanticKernel + GitHub Model 聊天紀錄 + Reducer 截斷只保留前x次訊息 範例
-await build.Services
-    .GetRequiredService<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>()
-     .ExecuteAsync();
+// await build.Services
+//     .GetRequiredService<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>()
+//      .ExecuteAsync();
 
 // await build.Services
 //     .GetRequiredService<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>()

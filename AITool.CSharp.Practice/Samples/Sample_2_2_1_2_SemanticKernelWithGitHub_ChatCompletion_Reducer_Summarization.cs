@@ -65,6 +65,8 @@ public class Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summ
         chatHistory.AddUserMessage("哪一家有 Wi-Fi？");
         chatHistory.AddUserMessage("我想買新北市的房子，請問房價怎麼樣？");
         chatHistory.AddUserMessage("高雄的交通方便嗎");
+        chatHistory.AddAssistantMessage("你好！請問有什麼我可以幫助你的嗎？");
+        
 
         // 5. 進行總結
         var reducedMessages_2_10 = await reducer_2_10.ReduceAsync(chatHistory, ct);
