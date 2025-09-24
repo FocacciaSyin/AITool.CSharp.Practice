@@ -26,6 +26,7 @@ builder.Services.AddSingleton<Sample_1_GitHubOpenAI>();
 builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
 builder.Services.AddSingleton<Sample_1_4_TokenCounting>();
 builder.Services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
+builder.Services.AddSingleton<Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat>();
 builder.Services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
 builder.Services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
 builder.Services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
@@ -43,9 +44,9 @@ var build = builder.Build();
 //     .Execute();
 
 // 1.3 使用 CSnakes + tiktoken 計算 Token 數量
-await build.Services
-    .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
-    .ExecuteAsync();
+// await build.Services
+//     .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
+//     .ExecuteAsync();
 
 // 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
 // await build.Services
@@ -57,6 +58,10 @@ await build.Services
 // await build.Services
 //     .GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>()
 //     .ExecuteAsync();
+
+await build.Services
+    .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat>()
+    .ExecuteAsync();
 
 // 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問
 // await build.Services

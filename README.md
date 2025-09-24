@@ -54,7 +54,7 @@ dotnet run --project AITool.CSharp.Practice
 
 - [x] 1.1 使用 OpenAI SDK (熟悉 API 呼叫)
 - [x] 1.2 建立簡單聊天範例
-- [ ] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算 Token 數量
+- [x] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算 Token 數量
 - [x] 1.4 計算 Token 數量 SK 官方使用 Microsoft.ML.Tokenizers (支援 GPT-4.1-nano, GPT-4, GPT-4o)
 - [x] AITool.CSharp.Practice\Python\ 目錄下建立 Python 範例
   - [x] 建立 token_counter.py > count_tokens 函式

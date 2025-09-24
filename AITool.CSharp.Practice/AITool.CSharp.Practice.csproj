@@ -20,19 +20,19 @@
 
     <ItemGroup>
         <PackageReference Include="CSnakes.Runtime" Version="1.2.1" />
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.8"/>
-        <PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.9" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.9" />
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.65.0" />
         <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.65.0"/>
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.64.0-alpha"/>
-        <PackageReference Include="Microsoft.ML.Tokenizers" Version="1.0.0"/>
-        <PackageReference Include="Microsoft.ML.Tokenizers.Data.Cl100kBase" Version="1.0.0"/>
-        <PackageReference Include="Microsoft.ML.Tokenizers.Data.O200kBase" Version="1.0.0"/>
+        <PackageReference Include="Microsoft.ML.Tokenizers" Version="1.0.2" />
+        <PackageReference Include="Microsoft.ML.Tokenizers.Data.Cl100kBase" Version="1.0.2" />
+        <PackageReference Include="Microsoft.ML.Tokenizers.Data.O200kBase" Version="1.0.2" />
     </ItemGroup>
 
     <ItemGroup>
