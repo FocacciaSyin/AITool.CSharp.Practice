@@ -13,13 +13,13 @@ builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("Ope
 builder.Services.Configure<GitHubSettings>(builder.Configuration.GetSection("GitHub"));
 builder.Services.Configure<GeminiSettings>(builder.Configuration.GetSection("Gemini"));
 
-// Configure CSnakes Python environment
+// 設定 CSnakes Python 環境
 var home = Path.Join(Directory.GetCurrentDirectory(), "Python");
 builder.Services
     .WithPython()
     .WithHome(home)
-    .WithVirtualEnvironment(Path.Join(home, ".venv"))
-    .WithPipInstaller();
+    .WithVirtualEnvironment(Path.Combine(home, ".venv"))
+    .FromRedistributable();
 
 // Register your services
 builder.Services.AddSingleton<Sample_1_GitHubOpenAI>();

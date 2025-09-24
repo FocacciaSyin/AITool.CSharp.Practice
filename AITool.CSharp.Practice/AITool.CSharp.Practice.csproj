@@ -10,34 +10,40 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-      <None Update="appsettings.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-      <AdditionalFiles Include="Python\token_counter.py">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Python\tiktokenFiles\o200k_base.tiktoken" />
+        <Content Include="..\.dockerignore">
+            <Link>.dockerignore</Link>
+        </Content>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="CSnakes" Version="1.0.17" />
-      <PackageReference Include="CSnakes.Runtime" Version="1.0.17" />
-      <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
-      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.8" />
-      <PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0" />
-      <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.65.0" />
-      <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.64.0-alpha" />
-      <PackageReference Include="Microsoft.ML.Tokenizers" Version="1.0.0" />
-      <PackageReference Include="Microsoft.ML.Tokenizers.Data.Cl100kBase" Version="1.0.0" />
-      <PackageReference Include="Microsoft.ML.Tokenizers.Data.O200kBase" Version="1.0.0" />
+        <PackageReference Include="CSnakes.Runtime" Version="1.2.1" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.8"/>
+        <PackageReference Include="Microsoft.SemanticKernel" Version="1.64.0"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.65.0"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.64.0-alpha"/>
+        <PackageReference Include="Microsoft.ML.Tokenizers" Version="1.0.0"/>
+        <PackageReference Include="Microsoft.ML.Tokenizers.Data.Cl100kBase" Version="1.0.0"/>
+        <PackageReference Include="Microsoft.ML.Tokenizers.Data.O200kBase" Version="1.0.0"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Python\requirements.txt" />
+        <Content Include="Python\requirements.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Python\token_counter.py"/>
+        <AdditionalFiles Include="Python\token_counter.py" SourceItemType="Python">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
     </ItemGroup>
 
 </Project>
