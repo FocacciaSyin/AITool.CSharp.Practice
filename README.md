@@ -56,6 +56,9 @@ dotnet run --project AITool.CSharp.Practice
 - [x] 1.2 建立簡單聊天範例
 - [ ] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算 Token 數量
 - [x] 1.4 計算 Token 數量 SK 官方使用 Microsoft.ML.Tokenizers (支援 GPT-4.1-nano, GPT-4, GPT-4o)
+- [x] AITool.CSharp.Practice\Python\ 目錄下建立 Python 範例
+  - [x] 建立 token_counter.py > count_tokens 函式
+  - [x] 使用 sample_token_counter.py 測試
 
 ## 2. Semantic Kernel 基礎
 
@@ -107,6 +110,8 @@ dotnet run --project AITool.CSharp.Practice
 - [ ] 7.2 移動平均線策略 (回測)
 - [ ] 7.3 布林帶策略 (回測)
 - [ ] 7.4 混合式決策 Agent (技術指標 + 新聞情緒)
+
+---
 
 實作多文檔檢索功能。
 
