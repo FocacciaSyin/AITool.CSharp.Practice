@@ -26,9 +26,23 @@ public class GymMenuPlugin
         - 有氧運動: 5K慢跑基礎課程
         """;
 
-    [KernelFunction, Description("提供指定健身課程的費用。")]
+    [KernelFunction, Description("取得所有可用的健身課程項目及其價格清單。")]
+    public string GetAllCoursesWithFees()
+    {
+        var courseList = string.Join("\n", CourseFees.Select(kvp => $"- {kvp.Key}: NT$ {kvp.Value}"));
+        return $"所有可用的健身課程及價格:\n{courseList}";
+    }
+
+    [KernelFunction, Description("查詢指定健身課程的費用。如果不確定課程名稱，請先使用 GetAllCoursesWithFees 查看所有可用課程。")]
     public string GetCourseFee([Description("健身課程名稱。")] string courseName)
     {
-        return CourseFees.TryGetValue(courseName, out var fee) ? fee : "查無此課程，請確認輸入名稱。";
+        if (CourseFees.TryGetValue(courseName, out var fee))
+        {
+            return $"{courseName} 的費用為 NT$ {fee}";
+        }
+        
+        // 提供建議的課程名稱
+        var availableCourses = string.Join(", ", CourseFees.Keys);
+        return $"查無此課程「{courseName}」，請確認輸入名稱。\n可用的課程有: {availableCourses}";
     }
 }

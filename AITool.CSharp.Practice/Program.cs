@@ -59,9 +59,10 @@ var build = builder.Build();
 //     .GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>()
 //     .ExecuteAsync();
 
-await build.Services
-    .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>()
-    .ExecuteAsync();
+// 2.0.1 使用 SemanticKernel + OpenAI APIKey 回傳指定 Model
+// await build.Services
+//     .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>()
+//     .ExecuteAsync();
 
 // 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問
 // await build.Services
@@ -98,6 +99,6 @@ await build.Services
 //     .ExecuteAsync();
 
 // 3.2 使用 Agent + Plugins
-// await build.Services
-//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
-//     .ExecuteAsync();
+await build.Services
+    .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
+    .ExecuteAsync();

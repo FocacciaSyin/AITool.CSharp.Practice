@@ -44,7 +44,7 @@ public class Sample_3_1_SemanticKernel_Agent_Plugins(IOptions<OpenAISettings> op
             })
         };
 
-        await foreach (AgentResponseItem<ChatMessageContent> response in agent.InvokeAsync("我想運動1小時要多少錢?"))
+        await foreach (var response in agent.InvokeAsync("我想運動1小時要多少錢?"))
         {
             Console.WriteLine(response.Message);
         }

@@ -64,7 +64,7 @@ dotnet run --project AITool.CSharp.Practice
 ## 2. Semantic Kernel 基礎
 
 - [x] 2.0 聊天整合 (OpenAI → GitHub Model)
-  - [x] 2.0.1 基本聊天回傳必須使用自定義的 C# Model
+    - [x] 2.0.1 基本聊天回傳必須使用自定義的 C# Model
 - [x] 2.1 聊天 (Conversation)
 - [x] 2.2 聊天 記憶歷史對話 (Conversation History)
     - [x] 2.2.1 Reducer (多輪對話總結 / 減量)
@@ -75,8 +75,8 @@ dotnet run --project AITool.CSharp.Practice
 
 ## 3. Agent 設計
 
-- [ ] 3.1 基本 Agent
-- [ ] 3.1 基本 Agent + Function Calling
+- [x] 3.1 基本 Agent
+- [x] 3.1 基本 Agent + Function Calling
 
 ## 5. 記憶 (Memory)
 
@@ -94,8 +94,8 @@ dotnet run --project AITool.CSharp.Practice
 
 ## 7. AutoGen 範例 (多 Agent 協作)
 
-- [ ] 7.0 [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html) 基本範例，建立 Python 版本
-
+- [ ] 7.0 [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html) 基本範例，建立
+  Python 版本
 
 ## 8. 股票顧問應用
 
@@ -107,6 +107,14 @@ dotnet run --project AITool.CSharp.Practice
 - [ ] 8.2 移動平均線策略 (回測)
 - [ ] 8.3 布林帶策略 (回測)
 - [ ] 8.4 混合式決策 Agent (技術指標 + 新聞情緒)
+
+## 9. Microsoft.Extensions.AI.Evaluation 驗證機制
+
+## 10. Opentelemetry 觀察性
+
+[.NET Aspire + Semantic Kernel](https://www.youtube.com/watch?v=0N8-NHjcG1U)
+[microsoft semantic-kernel ](https://learn.microsoft.com/zh-tw/semantic-kernel/concepts/enterprise-readiness/observability/telemetry-with-console?tabs=Powershell-CreateFile%2CEnvironmentFile&pivots=programming-language-csharp)
+
 
 ---
 

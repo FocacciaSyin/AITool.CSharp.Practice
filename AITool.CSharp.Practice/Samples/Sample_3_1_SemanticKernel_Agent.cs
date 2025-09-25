@@ -34,7 +34,7 @@ public class Sample_3_1_SemanticKernel_Agent(IOptions<OpenAISettings> openAiApiK
             Kernel = kernel,
         };
 
-        await foreach (AgentResponseItem<ChatMessageContent> response in agent.InvokeAsync("我想減重可以給我甚麼建議嗎?"))
+        await foreach (var response in agent.InvokeAsync("我想減重可以給我甚麼建議嗎?"))
         {
             Console.WriteLine(response.Message);
         }
