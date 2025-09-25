@@ -54,32 +54,23 @@ dotnet run --project AITool.CSharp.Practice
 
 - [x] 1.1 使用 OpenAI SDK (熟悉 API 呼叫)
 - [x] 1.2 建立簡單聊天範例
-- [x] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算 Token 數量
+- [x] 1.3 使用 [CSnakes](https://github.com/tonybaloney/csnakes) 執行 [tiktoken](https://github.com/openai/tiktoken) 計算
+  Token 數量
 - [x] 1.4 計算 Token 數量 SK 官方使用 Microsoft.ML.Tokenizers (支援 GPT-4.1-nano, GPT-4, GPT-4o)
 - [x] AITool.CSharp.Practice\Python\ 目錄下建立 Python 範例
-  - [x] 建立 token_counter.py > count_tokens 函式
-  - [x] 使用 sample_token_counter.py 測試
+    - [x] 建立 token_counter.py > count_tokens 函式
+    - [x] 使用 sample_token_counter.py 測試
 
 ## 2. Semantic Kernel 基礎
 
 - [x] 2.0 聊天整合 (OpenAI → GitHub Model)
 - [x] 2.1 聊天 (Conversation)
 - [x] 2.2 聊天 記憶歷史對話 (Conversation History)
-  - [x] 2.2.1 Reducer (多輪對話總結 / 減量)
-    - [x] 2.2.1.1 保留前 x 次對話 (Truncation)
-    - [x] 2.2.1.2 摘要前 x 次對話 (Summarization)
+    - [x] 2.2.1 Reducer (多輪對話總結 / 減量)
+        - [x] 2.2.1.1 保留前 x 次對話 (Truncation)
+        - [x] 2.2.1.2 摘要前 x 次對話 (Summarization)
 - [x] 2.3 OpenAI Function Calling
 - [X] 2.4 Gemini Function Calling
-
-### 2.2 / 2.2.1 對應範例說明
-
-| 功能 | 檔案 | 說明 |
-|------|------|------|
-| 基本聊天 + 歷史 | `Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History.cs` | 純記錄所有訊息，不做減量。 |
-| Reducer：截斷 + 摘要 | `Sample_2_2_1_1SemanticKernelWithGitHub_ChatCompletion_Reducer.cs` | 示範 2 種策略：保留最近 N 輪、遞迴摘要舊訊息。 |
-| 遞迴摘要邏輯 | `RecursiveSummarizingChatReducer.cs` | 自訂 Reducer，超過閾值後壓縮舊訊息為 System 摘要。 |
-
-> 後續可再加上：Auto 模式（視長度自動選擇截斷或摘要）、以實際 Token 計數替代字元估算、可配置批次大小、保留關鍵角色（例如 Function 呼叫的結果）。
 
 ## 3. Agent 設計
 
@@ -88,7 +79,7 @@ dotnet run --project AITool.CSharp.Practice
 
 ## 5. 記憶 (Memory)
 
-- [ ] 5.0 短期記憶 (會話上下文)
+- [ ] 5.0 短期記憶 (會話上下文) - 要可以 Import / Export
 - [ ] 5.1 長期記憶 (Qdrant / MSSQL)
 - [ ] 5.2 與登入系統整合 (辨識使用者)
 
@@ -100,16 +91,21 @@ dotnet run --project AITool.CSharp.Practice
 - [ ] 6.3 Markdown → 向量化
 - [ ] 6.4 股票新聞 RAG 檢索
 
-## 7. 股票顧問應用
+## 7. AutoGen 範例 (多 Agent 協作)
 
-- [ ] 7.0 混合式 Agent
+- [ ] 7.0 [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html) 基本範例，建立 Python 版本
+
+
+## 8. 股票顧問應用
+
+- [ ] 8.0 混合式 Agent
     - [ ] 股票顧問 Agent (讀取 MSSQL 大盤資料)
     - [ ] 新聞檢索 Agent (RAG + Qdrant)
     - [ ] 使用者對話 Agent (整合 system prompt + 記憶)
-- [ ] 7.1 MSSQL → Agent 自動讀取每日收盤價
-- [ ] 7.2 移動平均線策略 (回測)
-- [ ] 7.3 布林帶策略 (回測)
-- [ ] 7.4 混合式決策 Agent (技術指標 + 新聞情緒)
+- [ ] 8.1 MSSQL → Agent 自動讀取每日收盤價
+- [ ] 8.2 移動平均線策略 (回測)
+- [ ] 8.3 布林帶策略 (回測)
+- [ ] 8.4 混合式決策 Agent (技術指標 + 新聞情緒)
 
 ---
 
