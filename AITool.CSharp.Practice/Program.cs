@@ -26,7 +26,7 @@ builder.Services.AddSingleton<Sample_1_GitHubOpenAI>();
 builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
 builder.Services.AddSingleton<Sample_1_4_TokenCounting>();
 builder.Services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
-builder.Services.AddSingleton<Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat>();
+builder.Services.AddSingleton<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>();
 builder.Services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
 builder.Services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
 builder.Services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
@@ -60,7 +60,7 @@ var build = builder.Build();
 //     .ExecuteAsync();
 
 await build.Services
-    .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat>()
+    .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>()
     .ExecuteAsync();
 
 // 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問

@@ -9,10 +9,10 @@ using Microsoft.SemanticKernel.Connectors.OpenAI;
 namespace AITool.CSharp.Practice.Samples;
 
 /// <summary>
-/// 使用 SemanticKernel + OpenAI API Key 處理 Json 相關的功能
+/// 使用 SemanticKernel + OpenAI API Key 處理 聊天回傳格式為特定Model
 /// </summary>
 /// <param name="openAiApiKey">OpenAI 設定注入</param>
-public class Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat(IOptions<OpenAISettings> openAiApiKey)
+public class Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat(IOptions<OpenAISettings> openAiApiKey)
 {
     private readonly OpenAISettings _openAiApiKey = openAiApiKey.Value;
 
@@ -28,11 +28,17 @@ public class Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat(IOptions<Open
         // 2. 設定提示執行參數（要求回傳符合 AddressModel 的結構）
         var settings = new OpenAIPromptExecutionSettings
         {
-            ResponseFormat = typeof(AddressModel),
+            ResponseFormat = typeof(AddressModel), 
             ChatSystemPrompt = """
+                               重要：你是房仲人員，不回答與房地產無關的問題。
                                1. 此工具用途為將使用者輸入的文字轉換為台灣地址格式
                                2. 使用繁體中文回覆結果
                                3. 若無法判斷則輸出可判斷之欄位，其餘為 null
+                               4. 若問題與房地產、地址、房屋買賣租賃無關，請設定：
+                                  - isRefused: true
+                                  - refusedReason: "此問題與房地產無關"
+                                  - city, district 設為空字串
+                               5. 若是房地產相關問題，請設定 isRefused: false
                                """
         };
 
@@ -69,8 +75,15 @@ public class Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat(IOptions<Open
                 // 失敗時保留 null（可視需求後續再補強容錯）
             }
 
-            // 即時輸出單筆結果
-            Console.WriteLine($"=== 單筆結果 ===\n問題: {question}\n模型回傳: {rawText}\n解析: {address?.City}{address?.District}{address?.Street}{(address?.No != null ? address.No + "號" : string.Empty)}\n");
+            // 即時輸出單筆結果（根據是否拒絕回答調整顯示）
+            if (address?.IsRefused == true)
+            {
+                Console.WriteLine($"=== 單筆結果 ===\n問題: {question}\n模型回傳: {rawText}\n狀態: 已拒絕回答 - {address.RefusedReason}\n");
+            }
+            else
+            {
+                Console.WriteLine($"=== 單筆結果 ===\n問題: {question}\n模型回傳: {rawText}\n解析: {address?.City}{address?.District}{address?.Street}{(address?.No != null ? address.No + "號" : string.Empty)}\n");
+            }
         }
     }
 
@@ -102,5 +115,19 @@ public class Sample_2_0_1_SemanticKernel_ChatCompletion_JsonFormat(IOptions<Open
         /// </summary>
         [JsonPropertyName("no")]
         public string? No { get; set; }
+        
+        //---- 以下為 讓 LLM 分析使用 ----
+
+        /// <summary>
+        /// 是否拒絕回答（非房地產相關問題）
+        /// </summary>
+        [JsonPropertyName("isRefused")]
+        public bool IsRefused { get; set; }
+
+        /// <summary>
+        /// 拒絕原因（當 IsRefused 為 true 時）
+        /// </summary>
+        [JsonPropertyName("refusedReason")]
+        public string? RefusedReason { get; set; }
     }
 }

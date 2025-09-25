@@ -64,6 +64,7 @@ dotnet run --project AITool.CSharp.Practice
 ## 2. Semantic Kernel 基礎
 
 - [x] 2.0 聊天整合 (OpenAI → GitHub Model)
+  - [x] 2.0.1 基本聊天回傳必須使用自定義的 C# Model
 - [x] 2.1 聊天 (Conversation)
 - [x] 2.2 聊天 記憶歷史對話 (Conversation History)
     - [x] 2.2.1 Reducer (多輪對話總結 / 減量)
