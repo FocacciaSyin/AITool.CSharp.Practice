@@ -61,6 +61,7 @@ dotnet run --project AITool.CSharp.Practice
     - [x] 建立 token_counter.py > count_tokens 函式
     - [x] 使用 sample_token_counter.py 測試
 
+
 ## 2. Semantic Kernel 基礎
 
 - [x] 2.0 聊天整合 (OpenAI → GitHub Model)
@@ -80,8 +81,9 @@ dotnet run --project AITool.CSharp.Practice
 
 ## 5. 記憶 (Memory)
 
-- [ ] 5.0 短期記憶 (會話上下文) - 要可以 Import / Export
-- [ ] 5.1 長期記憶 (Qdrant / MSSQL)
+ 短期記憶 (ChatHistory)
+
+- [ ] 5.1 長期記憶 (In Memory / Qdrant / MSSQL)
 - [ ] 5.2 與登入系統整合 (辨識使用者)
 
 ## 6. RAG (檔案 & 外部知識)
@@ -111,10 +113,20 @@ dotnet run --project AITool.CSharp.Practice
 ## 9. Microsoft.Extensions.AI.Evaluation 驗證機制
 
 ## 10. Opentelemetry 觀察性
-
 [.NET Aspire + Semantic Kernel](https://www.youtube.com/watch?v=0N8-NHjcG1U)
 [microsoft semantic-kernel ](https://learn.microsoft.com/zh-tw/semantic-kernel/concepts/enterprise-readiness/observability/telemetry-with-console?tabs=Powershell-CreateFile%2CEnvironmentFile&pivots=programming-language-csharp)
 
+- [x] 加入 Tracing
+
+### Aspire Dashboard
+
+> 因為 Aspire 預設沒有處理 Unicode 所以還是使用 Grafana + Tempo 看結果。
+
+[獨立 .NET.NET Aspire 儀錶板](https://learn.microsoft.com/zh-tw/dotnet/aspire/fundamentals/dashboard/standalone?tabs=bash#start-the-dashboard)
+
+```
+podman run -it -d -p 18888:18888 -p 4317:18889 --name aspire-dashboard mcr.microsoft.com/dotnet/aspire-dashboard:latest
+```
 
 ---
 

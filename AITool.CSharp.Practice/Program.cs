@@ -1,9 +1,17 @@
+using System.Text.Encodings.Web;
+using AITool.CSharp.Practice.Infrastructure;
 using AITool.CSharp.Practice.Models.Settings;
 using AITool.CSharp.Practice.Samples;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CSnakes.Runtime;
+using Microsoft.Extensions.Logging;
+using OpenTelemetry;
+using OpenTelemetry.Logs;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
@@ -35,6 +43,8 @@ builder.Services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
 builder.Services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
 builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
 builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
+
+builder.Services.AddCustomOpenTelemetry();
 
 var build = builder.Build();
 
