@@ -20,6 +20,7 @@ builder.Configuration.AddUserSecrets<Program>();
 builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
 builder.Services.Configure<GitHubSettings>(builder.Configuration.GetSection("GitHub"));
 builder.Services.Configure<GeminiSettings>(builder.Configuration.GetSection("Gemini"));
+builder.Services.Configure<LangfuseSettings>(builder.Configuration.GetSection("Langfuse"));
 
 // 設定 CSnakes Python 環境
 var home = Path.Join(Directory.GetCurrentDirectory(), "Python");
@@ -44,7 +45,8 @@ builder.Services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>(
 builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
 builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
 
-builder.Services.AddCustomOpenTelemetry();
+// builder.Services.AddCustomOpenTelemetry();
+builder.Services.AddLangfuseOpenTelemetry();
 
 var build = builder.Build();
 
@@ -54,9 +56,9 @@ var build = builder.Build();
 //     .Execute();
 
 // 1.3 使用 CSnakes + tiktoken 計算 Token 數量
-// await build.Services
-//     .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
-//     .ExecuteAsync();
+await build.Services
+    .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
+    .ExecuteAsync();
 
 // 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
 // await build.Services

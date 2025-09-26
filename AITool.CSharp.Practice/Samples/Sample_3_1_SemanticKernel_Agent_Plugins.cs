@@ -27,9 +27,8 @@ public class Sample_3_1_SemanticKernel_Agent_Plugins(IOptions<OpenAISettings> op
         //加入 Function Calling(Plugins)
         kernel.Plugins.Add(KernelPluginFactory.CreateFromType<GymMenuPlugin>());
 
-        ChatCompletionAgent agent = new()
+        var agent = new ChatCompletionAgent()
         {
-            Name = "SK-AGENT-健身專家",
             Instructions = """
                            你是一個健身減重教練，
                            - 永遠使用繁體中文回覆

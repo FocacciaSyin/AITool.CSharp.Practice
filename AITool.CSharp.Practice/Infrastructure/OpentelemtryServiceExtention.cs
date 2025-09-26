@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
+using OpenTelemetry.Exporter;
 using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -8,7 +9,7 @@ using OpenTelemetry.Trace;
 
 namespace AITool.CSharp.Practice.Infrastructure;
 
-public static class AspireSericeExtention
+public static class OpentelemtryServiceExtention
 {
     public static IServiceCollection AddCustomOpenTelemetry(this IServiceCollection services)
     {
@@ -25,11 +26,11 @@ public static class AspireSericeExtention
         var traceProvider = Sdk.CreateTracerProviderBuilder()
             .SetResourceBuilder(resourceBuilder)
             .AddSource("Microsoft.SemanticKernel*")
-            .AddConsoleExporter(options => { options.Targets = OpenTelemetry.Exporter.ConsoleExporterOutputTargets.Console; })
+            .AddConsoleExporter(options => { options.Targets = ConsoleExporterOutputTargets.Console; })
             .AddOtlpExporter(options =>
             {
                 options.Endpoint = new Uri(endpoint);
-                options.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.Grpc;
+                options.Protocol = OtlpExportProtocol.Grpc;
             })
             .Build();
 
