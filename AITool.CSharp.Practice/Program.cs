@@ -36,6 +36,7 @@ builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
 builder.Services.AddSingleton<Sample_1_4_TokenCounting>();
 builder.Services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
 builder.Services.AddSingleton<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>();
+builder.Services.AddSingleton<Sample_2_0_2_SemanticKernel_Article_QA>();
 builder.Services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
 builder.Services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
 builder.Services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
@@ -56,9 +57,9 @@ var build = builder.Build();
 //     .Execute();
 
 // 1.3 使用 CSnakes + tiktoken 計算 Token 數量
-await build.Services
-    .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
-    .ExecuteAsync();
+// await build.Services
+//     .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
+//     .ExecuteAsync();
 
 // 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
 // await build.Services
@@ -75,6 +76,11 @@ await build.Services
 // await build.Services
 //     .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>()
 //     .ExecuteAsync();
+
+// 2.0.2 使用 SemanticKernel + OpenAI APIKey 讀取文章生成 Q&A
+await build.Services
+    .GetRequiredService<Sample_2_0_2_SemanticKernel_Article_QA>()
+    .ExecuteAsync();
 
 // 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問
 // await build.Services
@@ -111,6 +117,6 @@ await build.Services
 //     .ExecuteAsync();
 
 // 3.2 使用 Agent + Plugins
-await build.Services
-    .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
-    .ExecuteAsync();
+// await build.Services
+//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
+//     .ExecuteAsync();
