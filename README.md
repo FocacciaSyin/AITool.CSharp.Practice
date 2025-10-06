@@ -66,6 +66,7 @@ dotnet run --project AITool.CSharp.Practice
 
 - [x] 2.0 聊天整合 (OpenAI → GitHub Model)
     - [x] 2.0.1 基本聊天回傳必須使用自定義的 C# Model
+    - [x] 2.0.2 使用 SemanticKernel + OpenAI API 讀取文章並由 LLM 生成 10 筆 Q&A
 - [x] 2.1 聊天 (Conversation)
 - [x] 2.2 聊天 記憶歷史對話 (Conversation History)
     - [x] 2.2.1 Reducer (多輪對話總結 / 減量)
@@ -79,38 +80,31 @@ dotnet run --project AITool.CSharp.Practice
 - [x] 3.1 基本 Agent
 - [x] 3.1 基本 Agent + Function Calling
 
-## 5. 記憶 (Memory)
+## 4. RAG (檔案 & 外部知識)
 
- 短期記憶 (ChatHistory)
+- [ ] 4.0 建立 Qdrant Docker 環境
+- [ ] 4.1 整合 Semantic Kernel + Qdrant
+- [ ] 4.2 PDF → 向量化 & 查詢
+- [ ] 4.3 Markdown → 向量化
+- [ ] 4.4 股票新聞 RAG 檢索
 
-- [ ] 5.1 長期記憶 (In Memory / Qdrant / MSSQL)
-- [ ] 5.2 與登入系統整合 (辨識使用者)
+## 5. AutoGen 範例 (多 Agent 協作)
 
-## 6. RAG (檔案 & 外部知識)
-
-- [ ] 6.0 建立 Qdrant Docker 環境
-- [ ] 6.1 整合 Semantic Kernel + Qdrant
-- [ ] 6.2 PDF → 向量化 & 查詢
-- [ ] 6.3 Markdown → 向量化
-- [ ] 6.4 股票新聞 RAG 檢索
-
-## 7. AutoGen 範例 (多 Agent 協作)
-
-- [ ] 7.0 [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html) 基本範例，建立
+- [ ] 5.0 [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html) 基本範例，建立
   Python 版本
 
-## 8. 股票顧問應用
+## 6. 股票顧問應用
 
-- [ ] 8.0 混合式 Agent
+- [ ] 6.0 混合式 Agent
     - [ ] 股票顧問 Agent (讀取 MSSQL 大盤資料)
     - [ ] 新聞檢索 Agent (RAG + Qdrant)
     - [ ] 使用者對話 Agent (整合 system prompt + 記憶)
-- [ ] 8.1 MSSQL → Agent 自動讀取每日收盤價
-- [ ] 8.2 移動平均線策略 (回測)
-- [ ] 8.3 布林帶策略 (回測)
-- [ ] 8.4 混合式決策 Agent (技術指標 + 新聞情緒)
+- [ ] 7.1 MSSQL → Agent 自動讀取每日收盤價
+- [ ] 7.2 移動平均線策略 (回測)
+- [ ] 7.3 布林帶策略 (回測)
+- [ ] 7.4 混合式決策 Agent (技術指標 + 新聞情緒)
 
-## 9. Microsoft.Extensions.AI.Evaluation 驗證機制
+## 9. Microsoft.Extensions.AI.Evaluation 評估機制
 
 ## 10. Opentelemetry 觀察性
 [.NET Aspire + Semantic Kernel](https://www.youtube.com/watch?v=0N8-NHjcG1U)
@@ -127,6 +121,27 @@ dotnet run --project AITool.CSharp.Practice
 ```
 podman run -it -d -p 18888:18888 -p 4317:18889 --name aspire-dashboard mcr.microsoft.com/dotnet/aspire-dashboard:latest
 ```
+
+
+### Langfuese + Sermantic Kernel
+
+1. 安裝 Docker 環境，自己 clone Langfuse 專案 執行 `docker-compose up -d`
+https://github.com/langfuse/langfuse?tab=readme-ov-file#self-host-langfuse
+
+參考官方文件
+https://langfuse.com/integrations/frameworks/semantic-kernel
+
+1. 實作 builder.Services.AddLangfuseOpenTelemetry();
+2. 登入 Langfuse 建立專案 取得 PublicKey & SecretKey
+```json
+  "Langfuse": {
+    "SecretKey": "sk-lf-d77acb00-67ea-4dba-9850-ba55f7c2cda9",
+    "PublicKey": "pk-lf-40e5c2b9-8edc-4276-9d98-b176671f2e25",
+    "Host": "http://localhost:3000/api/public/otel/v1/traces"
+  }
+```
+
+
 
 ---
 

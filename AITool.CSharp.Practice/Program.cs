@@ -47,7 +47,7 @@ builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
 builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
 
 // builder.Services.AddCustomOpenTelemetry();
-builder.Services.AddLangfuseOpenTelemetry();
+_ = builder.Services.AddLangfuseOpenTelemetry();
 
 var build = builder.Build();
 

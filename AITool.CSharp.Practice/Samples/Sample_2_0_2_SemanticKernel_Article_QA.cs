@@ -84,6 +84,8 @@ public class Sample_2_0_2_SemanticKernel_Article_QA(IOptions<OpenAISettings> ope
         {
             Console.WriteLine("未能生成有效的 Q&A 列表。");
         }
+        
+        Console.ReadLine(); // 暫停以便把紀錄被 Openteleator 擷取
     }
 
     /// <summary>

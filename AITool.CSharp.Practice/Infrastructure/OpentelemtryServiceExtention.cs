@@ -11,9 +11,18 @@ namespace AITool.CSharp.Practice.Infrastructure;
 
 public static class OpentelemtryServiceExtention
 {
+    /// <summary>
+    /// Aspire / Grafana 快速開始 OpenTelemetry 設定
+    /// </summary>
+    /// <remarks>
+    /// 1. Aspire 目前中文都會被 Unicode 過顯示不是很友善所以不使用<br/>
+    /// 2. Grafana Tempo 目前測試可以正常顯示文字
+    /// </remarks>
+    /// <param name="services"></param>
+    /// <returns></returns>
     public static IServiceCollection AddCustomOpenTelemetry(this IServiceCollection services)
     {
-        // Endpoint to the Aspire Dashboard / Grafana Tempo (目前測試用 Tempo 看就不需要管 unicode 的問題)
+        // Endpoint to the Aspire Dashboard / Grafana Tempo 
         var endpoint = "http://localhost:4317";
 
         var resourceBuilder = ResourceBuilder
