@@ -9,12 +9,12 @@ namespace AITool.CSharp.Practice.Samples;
 /// 2. 示範如何計算文字的 Token 數量
 /// 3. 比較不同模型的 Token 計算結果
 /// </summary>
-public class Sample_1_4_TokenCounting
+public static class Sample_1_4_TokenCounting
 {
     /// <summary>
     /// 執行 Token 計算範例
     /// </summary>
-    public async Task ExecuteAsync()
+    public static async Task RunAsync()
     {
         Console.WriteLine("=== 1.4 Token 計算範例 ===\n");
 

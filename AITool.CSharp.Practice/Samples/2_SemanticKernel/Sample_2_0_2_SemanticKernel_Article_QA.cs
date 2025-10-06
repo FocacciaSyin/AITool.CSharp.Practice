@@ -11,18 +11,15 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// <summary>
 /// 使用 SemanticKernel + OpenAI API Key 讀取文章並由 LLM 生成 10 筆 Q&A
 /// </summary>
-/// <param name="openAiApiKey">OpenAI 設定注入</param>
-public class Sample_2_0_2_SemanticKernel_Article_QA(IOptions<OpenAISettings> openAiApiKey)
+public static class Sample_2_0_2_SemanticKernel_Article_QA
 {
-    private readonly OpenAISettings _openAiApiKey = openAiApiKey.Value;
-
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(OpenAISettings openAiSettings)
     {
         // 1. 建立 Kernel
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(
-                modelId: _openAiApiKey.Model,
-                apiKey: _openAiApiKey.ApiKey)
+                modelId: openAiSettings.Model,
+                apiKey: openAiSettings.ApiKey)
             .Build();
 
         // 2. 定義文章內容（可視需求從檔案讀取，此處硬編碼範例）

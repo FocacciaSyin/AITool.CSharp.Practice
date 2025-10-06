@@ -1,28 +1,20 @@
-using System.Text.Encodings.Web;
-using AITool.CSharp.Practice.Infrastructure;
 using AITool.CSharp.Practice.Models.Settings;
 using AITool.CSharp.Practice.Samples;
 using AITool.CSharp.Practice.Samples._2_SemanticKernel;
 using AITool.CSharp.Practice.Samples._3_Agent;
+using CSnakes.Runtime;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CSnakes.Runtime;
-using Microsoft.Extensions.Logging;
-using OpenTelemetry;
-using OpenTelemetry.Logs;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
+
+// Load configuration
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddUserSecrets<Program>()
+    .Build();
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Configuration.AddUserSecrets<Program>();
-
-// Register configuration settings
-builder.Services.Configure<OpenAISettings>(builder.Configuration.GetSection("OpenAI"));
-builder.Services.Configure<GitHubSettings>(builder.Configuration.GetSection("GitHub"));
-builder.Services.Configure<GeminiSettings>(builder.Configuration.GetSection("Gemini"));
-builder.Services.Configure<LangfuseSettings>(builder.Configuration.GetSection("Langfuse"));
 
 // 設定 CSnakes Python 環境
 var home = Path.Join(Directory.GetCurrentDirectory(), "Python");
@@ -32,93 +24,66 @@ builder.Services
     .WithVirtualEnvironment(Path.Combine(home, ".venv"))
     .FromRedistributable();
 
-// Register your services
-builder.Services.AddSingleton<Sample_1_GitHubOpenAI>();
 builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
-builder.Services.AddSingleton<Sample_1_4_TokenCounting>();
-builder.Services.AddSingleton<Sample_2_0_SemanticKernel_ChatCompletion>();
-builder.Services.AddSingleton<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>();
-builder.Services.AddSingleton<Sample_2_0_2_SemanticKernel_Article_QA>();
-builder.Services.AddSingleton<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>();
-builder.Services.AddSingleton<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>();
-builder.Services.AddSingleton<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>();
-builder.Services.AddSingleton<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>();
-builder.Services.AddSingleton<Sample_2_3_SemanticKernel_FunctionCalling>();
-builder.Services.AddSingleton<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>();
-builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent>();
-builder.Services.AddSingleton<Sample_3_1_SemanticKernel_Agent_Plugins>();
-
-// builder.Services.AddCustomOpenTelemetry();
-_ = builder.Services.AddLangfuseOpenTelemetry();
 
 var build = builder.Build();
-
-// 1. 使用 OpenAI SDK 基本詢問
-// build.Services
-//     .GetRequiredService<Sample_1_GitHubOpenAI>()
-//     .Execute();
-
-// 1.3 使用 CSnakes + tiktoken 計算 Token 數量
-// await build.Services
-//     .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
-//     .ExecuteAsync();
-
-// 1.4 使用 Microsoft.ML.Tokenizers 計算 Token 數量
-// await build.Services
-//     .GetRequiredService<Sample_1_4_TokenCounting>()
-//     .ExecuteAsync();
-
-// 2. 使用 SemanticKernel 範例
-// 2.0 使用 SemanticKernel + OpenAI APIKey 基本詢問
-// await build.Services
-//     .GetRequiredService<Sample_2_0_SemanticKernel_ChatCompletion>()
-//     .ExecuteAsync();
-
-// 2.0.1 使用 SemanticKernel + OpenAI APIKey 回傳指定 Model
-// await build.Services
-//     .GetRequiredService<Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat>()
-//     .ExecuteAsync();
-
-// 2.0.2 使用 SemanticKernel + OpenAI APIKey 讀取文章生成 Q&A
 await build.Services
-    .GetRequiredService<Sample_2_0_2_SemanticKernel_Article_QA>()
+    .GetRequiredService<Sample_1_3_CSnakes_TokenCounting>()
     .ExecuteAsync();
+// Load settings
+var gitHubSettings = configuration.GetSection("GitHub").Get<GitHubSettings>()!;
+var openAISettings = configuration.GetSection("OpenAI").Get<OpenAISettings>()!;
+var geminiSettings = configuration.GetSection("Gemini").Get<GeminiSettings>()!;
 
-// 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問
-// await build.Services
-//     .GetRequiredService<Sample_2_1_SemanticKernelWithGitHub_ChatCompletion>()
-//     .ExecuteAsync();
+var provider = builder.Services.BuildServiceProvider();
 
-// 2.2 使用 SemanticKernel + GitHub Model 聊天紀錄
-// await build.Services
-//     .GetRequiredService<Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History>()
-//     .ExecuteAsync();
+// Define allSamples collection for all examples
+var allSamples = new List<(string, Func<Task>)>
+{
+    ("1.0 Assistant Agent", async () => await Example01_AssistantAgent.RunAsync(gitHubSettings)),
+    ("1.4 Token Counting", async () => await Sample_1_4_TokenCounting.RunAsync()),
+    ("2.0 SemanticKernel Chat Completion", async () => await Sample_2_0_SemanticKernel_ChatCompletion.RunAsync(openAISettings)),
+    ("2.0.1 SemanticKernel Chat Completion Response Format", async () => await Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat.RunAsync(openAISettings)),
+    ("2.0.2 SemanticKernel Article QA", async () => await Sample_2_0_2_SemanticKernel_Article_QA.RunAsync(openAISettings)),
+    ("2.1 SemanticKernel with GitHub Chat Completion", async () => await Sample_2_1_SemanticKernelWithGitHub_ChatCompletion.RunAsync(gitHubSettings)),
+    ("2.2.1.1 SemanticKernel with GitHub Reducer Truncation", async () => await Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation.RunAsync(gitHubSettings)),
+    ("2.2.1.2 SemanticKernel with GitHub Reducer Summarization", async () => await Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization.RunAsync(gitHubSettings)),
+    ("2.2 SemanticKernel with GitHub Chat Completion History", async () => await Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History.RunAsync(gitHubSettings)),
+    ("2.3 SemanticKernel Function Calling", async () => await Sample_2_3_SemanticKernel_FunctionCalling.RunAsync(openAISettings)),
+    ("2.4 SemanticKernel Function Calling Gemini", async () => await Sample_2_4_SemanticKernel_FunctionCalling_Gemini.RunAsync(geminiSettings)),
+    ("3.1 SemanticKernel Agent", async () => await Sample_3_1_SemanticKernel_Agent.RunAsync(openAISettings)),
+    ("3.1 SemanticKernel Agent Plugins", async () => await Sample_3_1_SemanticKernel_Agent_Plugins.RunAsync(openAISettings)),
+};
 
-// 2.2.1 使用 SemanticKernel + GitHub Model 聊天紀錄 + Reducer 截斷只保留前x次訊息 範例
-// await build.Services
-//     .GetRequiredService<Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation>()
-//      .ExecuteAsync();
 
-// await build.Services
-//     .GetRequiredService<Sample_2_2_1_2_SemanticKernelWithGitHub_ChatCompletion_Reducer_Summarization>()
-//     .ExecuteAsync();
 
-// 2.3 使用 SemanticKernel + OpenAI API Key +  Function Calling 範例
-// await build.Services
-//     .GetRequiredService<Sample_2_3_SemanticKernel_FunctionCalling>()
-//     .ExecuteAsync();
+Console.WriteLine("可以使用的範例:\n\n");
+var idx = 1;
+var map = new Dictionary<int, (string, Func<Task>)>();
+foreach (var sample in allSamples)
+{
+    map.Add(idx, sample);
+    Console.WriteLine("{0}. {1}", idx++, sample.Item1);
+}
 
-// 2.4 使用 SemanticKernel + Gemini API Key +  Function Calling 範例
-// await build.Services
-//     .GetRequiredService<Sample_2_4_SemanticKernel_FunctionCalling_Gemini>()
-//     .ExecuteAsync();
+Console.WriteLine("\n\n輸入你想要測試的案例編號:");
 
-// 3.1 使用 Agent
-// await build.Services
-//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent>()
-//     .ExecuteAsync();
+while (true)
+{
+    var input = Console.ReadLine();
+    if (input == "exit")
+    {
+        break;
+    }
 
-// 3.2 使用 Agent + Plugins
-// await build.Services
-//     .GetRequiredService<Sample_3_1_SemanticKernel_Agent_Plugins>()
-//     .ExecuteAsync();
+    var val = Convert.ToInt32(input);
+    if (!map.ContainsKey(val))
+    {
+        Console.WriteLine("Invalid choice");
+    }
+    else
+    {
+        Console.WriteLine("執行： {0}", map[val].Item1);
+        await map[val].Item2.Invoke();
+    }
+}

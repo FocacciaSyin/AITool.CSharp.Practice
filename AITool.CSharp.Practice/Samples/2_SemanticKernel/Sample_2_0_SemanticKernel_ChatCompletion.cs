@@ -8,18 +8,15 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// <summary>
 /// 使用 SemanticKernel + OpenAI API Key 進行最基本的聊天補全（Chat Completion）範例
 /// </summary>
-/// <param name="openAiApiKey">OpenAI 設定注入</param>
-public class Sample_2_0_SemanticKernel_ChatCompletion(IOptions<OpenAISettings> openAiApiKey)
+public static class Sample_2_0_SemanticKernel_ChatCompletion
 {
-    private readonly OpenAISettings _openAiApiKey = openAiApiKey.Value;
-
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(OpenAISettings openAiSettings)
     {
         // 1. 建立 Kernel（最基本建置方式）
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(
-                modelId: _openAiApiKey.Model,
-                apiKey: _openAiApiKey.ApiKey)
+                modelId: openAiSettings.Model,
+                apiKey: openAiSettings.ApiKey)
             .Build();
 
         // 基本單輪詢問（可視需求取消註解）

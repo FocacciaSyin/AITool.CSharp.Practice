@@ -8,17 +8,14 @@ namespace AITool.CSharp.Practice.Samples._3_Agent;
 /// <summary>
 /// 使用  https://github.com/microsoft/semantic-kernel?tab=readme-ov-file#basic-agent---net 基本範例
 /// </summary>
-/// <param name="openAiApiKey"></param>
-public class Sample_3_1_SemanticKernel_Agent(IOptions<OpenAISettings> openAiApiKey)
+public static class Sample_3_1_SemanticKernel_Agent
 {
-    private readonly OpenAISettings _openAiApiKey = openAiApiKey.Value;
-
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(OpenAISettings openAISettings)
     {
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(
                 modelId: "gpt-4o",
-                apiKey: _openAiApiKey.ApiKey)
+                apiKey: openAISettings.ApiKey)
             .Build();
 
         var agent = new ChatCompletionAgent

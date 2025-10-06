@@ -19,24 +19,22 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// <remarks>
 /// GitHub Models 可讓你在不直接使用 OpenAI API Key 的情況下測試模型（需設定對應 Endpoint 與 Token）。
 /// </remarks>
-public class Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History(IOptions<GitHubSettings> githubSettings)
+public static class Sample_2_2_SemanticKernelWithGitHub_ChatCompletion_History
 {
-    private readonly GitHubSettings _gitHubSettings = githubSettings.Value;
-
     /// <summary>
     /// 執行主流程：讀取使用者輸入 → 呼叫模型 → 顯示並寫入歷史。
     /// 空行（Enter）離開迴圈。
     /// </summary>
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(GitHubSettings githubSettings)
     {
         // 建立 OpenAI 相容 Client（使用 GitHub Models Token）
         var client = new OpenAIClient(
-            credential: new ApiKeyCredential(_gitHubSettings.ApiKey),
-            options: new OpenAIClientOptions { Endpoint = new Uri(_gitHubSettings.EndPoint) });
+            credential: new ApiKeyCredential(githubSettings.ApiKey),
+            options: new OpenAIClientOptions { Endpoint = new Uri(githubSettings.EndPoint) });
 
         // 建立 Kernel 並註冊 Chat Completion 服務
         var kernel = Kernel.CreateBuilder()
-            .AddOpenAIChatCompletion(_gitHubSettings.ModelId, client)
+            .AddOpenAIChatCompletion(githubSettings.ModelId, client)
             .Build();
         
         // 從 DI / Kernel 解析出聊天服務

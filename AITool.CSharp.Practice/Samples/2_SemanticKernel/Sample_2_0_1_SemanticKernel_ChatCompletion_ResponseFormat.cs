@@ -11,18 +11,15 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// <summary>
 /// 使用 SemanticKernel + OpenAI API Key 處理 聊天回傳格式為特定Model
 /// </summary>
-/// <param name="openAiApiKey">OpenAI 設定注入</param>
-public class Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat(IOptions<OpenAISettings> openAiApiKey)
+public static class Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat
 {
-    private readonly OpenAISettings _openAiApiKey = openAiApiKey.Value;
-
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(OpenAISettings openAiSettings)
     {
         // 1. 建立 Kernel
         var kernel = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(
-                modelId: _openAiApiKey.Model,
-                apiKey: _openAiApiKey.ApiKey)
+                modelId: openAiSettings.Model,
+                apiKey: openAiSettings.ApiKey)
             .Build();
 
         // 2. 設定提示執行參數（要求回傳符合 AddressModel 的結構）

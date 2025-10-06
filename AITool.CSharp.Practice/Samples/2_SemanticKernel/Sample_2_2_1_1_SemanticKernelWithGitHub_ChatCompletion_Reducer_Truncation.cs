@@ -13,27 +13,24 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// 僅示範『截斷 (Truncation)』策略：
 /// 使用 Microsoft.SemanticKernel.ChatCompletion 原生 ChatHistoryTruncationReducer 策略
 /// </summary>
-public class Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation(IOptions<GitHubSettings> githubSettings)
+public static class Sample_2_2_1_1_SemanticKernelWithGitHub_ChatCompletion_Reducer_Truncation
 {
-    // GitHub OpenAI 相容模型設定（由 DI 注入）
-    private readonly GitHubSettings _gitHubSettings = githubSettings.Value;
-
     /// <summary>
     /// 執行截斷 (Truncation) Reducer 示範流程
     /// </summary>
     /// <param name="ct">取消作業用的 CancellationToken。</param>
-    public async Task ExecuteAsync(CancellationToken ct = default)
+    public static async Task RunAsync(GitHubSettings gitHubSettings, CancellationToken ct = default)
     {
         // 1. 建立 GitHub Models 相容的 OpenAIClient（使用 GitHub Token + Endpoint）
         //    GitHub Models 對外提供 OpenAI 相容協議，因此可直接使用 OpenAIClient。
         var client = new OpenAIClient(
-            credential: new ApiKeyCredential(_gitHubSettings.ApiKey),
-            options: new OpenAIClientOptions { Endpoint = new Uri(_gitHubSettings.EndPoint) }
+            credential: new ApiKeyCredential(gitHubSettings.ApiKey),
+            options: new OpenAIClientOptions { Endpoint = new Uri(gitHubSettings.EndPoint) }
         );
 
         // 2. 建立 Kernel 並註冊 ChatCompletion 服務
         var kernel = Kernel.CreateBuilder()
-            .AddOpenAIChatCompletion(_gitHubSettings.ModelId, client)
+            .AddOpenAIChatCompletion(gitHubSettings.ModelId, client)
             .Build();
 
         // 3. 取得 ChatCompletion 服務實例

@@ -12,17 +12,15 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// <remarks>
 /// 展示如何讓 AI 透過 Function Calling 呼叫 C# 方法
 /// </remarks>
-public class Sample_2_4_SemanticKernel_FunctionCalling_Gemini(IOptions<GeminiSettings> geminiSettings)
+public static class Sample_2_4_SemanticKernel_FunctionCalling_Gemini
 {
-    private readonly GeminiSettings _geminiSettings = geminiSettings.Value;
-
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(GeminiSettings geminiSettings)
     {
         //與 2.3 範例幾乎一樣，差別在於這邊使用 Gemini 的擴充方法
         var kernelBuilder = Kernel.CreateBuilder()
             .AddGoogleAIGeminiChatCompletion(
-                modelId: _geminiSettings.ModelId,
-                apiKey: _geminiSettings.ApiKey,
+                modelId: geminiSettings.ModelId,
+                apiKey: geminiSettings.ApiKey,
                 httpClient: HttpLoggerHelper.GetHttpClient(true)
             );
 

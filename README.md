@@ -103,6 +103,23 @@ https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index
 - [ ] 5.3 Markdown → 向量化
 - [ ] 5.4 股票新聞 RAG 檢索
 
+### Qdrant
+
+Kilo Code 可以使用 Qdrant 讀程式
+
+https://kilocode.ai/docs/features/codebase-indexing
+
+#### 安裝 Qdrant
+
+```
+podman run -d --name qdrant -p 6333:6333 -p 6334:6334 -v qdrant_storage:/qdrant/storage qdrant/qdrant:latest
+```
+
+![img.png](./Documents/Images/kilocode_index_settings_1.png)
+
+#### 進入 Dashboard
+http://localhost:6333/dashboard
+
 ## 6. 股票顧問應用
 
 - [ ] 6.0 混合式 Agent
@@ -131,7 +148,6 @@ https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index
 ```
 podman run -it -d -p 18888:18888 -p 4317:18889 --name aspire-dashboard mcr.microsoft.com/dotnet/aspire-dashboard:latest
 ```
-
 
 ### Langfuese + Sermantic Kernel
 

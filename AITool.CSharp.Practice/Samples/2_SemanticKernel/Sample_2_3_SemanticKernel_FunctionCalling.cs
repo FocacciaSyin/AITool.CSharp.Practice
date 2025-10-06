@@ -12,17 +12,15 @@ namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 /// <remarks>
 /// 展示如何讓 AI 透過 Function Calling 呼叫 C# 方法
 /// </remarks>
-public class Sample_2_3_SemanticKernel_FunctionCalling(IOptions<OpenAISettings> openAiSettings)
+public static class Sample_2_3_SemanticKernel_FunctionCalling
 {
-    private readonly OpenAISettings _openAiSettings = openAiSettings.Value;
-
-    public async Task ExecuteAsync()
+    public static async Task RunAsync(OpenAISettings openAiSettings)
     {
         var kernelBuilder = Kernel.CreateBuilder()
             .AddOpenAIChatCompletion(
-                modelId: _openAiSettings.Model,
-                apiKey: _openAiSettings.ApiKey,
-                httpClient: HttpLoggerHelper.GetHttpClient(false)//開啟後可以看到 Plugin 是不是有被使用
+                modelId: openAiSettings.Model,
+                apiKey: openAiSettings.ApiKey,
+                httpClient: HttpLoggerHelper.GetHttpClient(false) //開啟後可以看到 Plugin 是不是有被使用
             );
 
         // 註冊可被 AI 呼叫的 C# 方法

@@ -1,7 +1,6 @@
 ﻿using System.ClientModel;
 using AITool.CSharp.Practice.Models;
 using AITool.CSharp.Practice.Models.Settings;
-using Microsoft.Extensions.Options;
 using OpenAI;
 using OpenAI.Chat;
 
@@ -10,37 +9,38 @@ namespace AITool.CSharp.Practice.Samples;
 /// <summary>
 /// 使用 OpenAI SDK 基本詢問
 /// </summary>
-public class Sample_1_GitHubOpenAI(IOptions<GitHubSettings> githubSettings)
+public static class Example01_AssistantAgent
 {
-    private readonly GitHubSettings _gitHubSettings = githubSettings.Value;
-
     /// <summary>
     /// GitHub MarketPlace OpenAI 範例
     /// </summary>
-    public void Execute()
+    public static async Task RunAsync(GitHubSettings gitHubSettings)
     {
-        var client = new ChatClient(
-            model: _gitHubSettings.ModelId,
-            credential: new ApiKeyCredential(_gitHubSettings.ApiKey),
-            options: new OpenAIClientOptions
-            {
-                Endpoint = new Uri(_gitHubSettings.EndPoint)
-            });
-
-        var messages = new List<ChatMessage>
+        await Task.Run(() =>
         {
-            new SystemChatMessage("你是一個健身減重教練"),
-            new UserChatMessage("給我重訓菜單"),
-        };
+            var client = new ChatClient(
+                model: gitHubSettings.ModelId,
+                credential: new ApiKeyCredential(gitHubSettings.ApiKey),
+                options: new OpenAIClientOptions
+                {
+                    Endpoint = new Uri(gitHubSettings.EndPoint)
+                });
 
-        var response = client.CompleteChat(
-            messages,
-            options: new ChatCompletionOptions
+            var messages = new List<ChatMessage>
             {
-                Temperature = 1f,
-                TopP = 1f,
-            });
-        
-        Console.WriteLine(response.Value.Content[0].Text);
+                new SystemChatMessage("你是一個健身減重教練"),
+                new UserChatMessage("給我重訓菜單"),
+            };
+
+            var response = client.CompleteChat(
+                messages,
+                options: new ChatCompletionOptions
+                {
+                    Temperature = 1f,
+                    TopP = 1f,
+                });
+
+            Console.WriteLine(response.Value.Content[0].Text);
+        });
     }
 }
