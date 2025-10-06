@@ -1,11 +1,11 @@
 using AITool.CSharp.Practice.Models.Helpers;
 using AITool.CSharp.Practice.Models.Settings;
+using AITool.CSharp.Practice.Samples.Plugins;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
-using AITool.CSharp.Practice.Samples.Plugins;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._3_Agent;
 
 /// <summary>
 /// 使用 https://github.com/microsoft/semantic-kernel?tab=readme-ov-file#agent-with-plugin---net 範例

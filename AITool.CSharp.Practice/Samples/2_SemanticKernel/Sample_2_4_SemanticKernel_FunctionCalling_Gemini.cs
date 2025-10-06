@@ -3,9 +3,8 @@ using AITool.CSharp.Practice.Models.Helpers;
 using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 
 /// <summary>
 /// 2.4 使用 SemanticKernel + Gemini API Key +  Function Calling 範例

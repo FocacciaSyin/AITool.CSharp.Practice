@@ -1,12 +1,10 @@
 ﻿using System.ClientModel;
-using AITool.CSharp.Practice.Models;
 using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.ChatCompletion;
 using OpenAI;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 
 /// <summary>
 /// 2.1 使用 SemanticKernel + GitHub OpenAI 基本詢問

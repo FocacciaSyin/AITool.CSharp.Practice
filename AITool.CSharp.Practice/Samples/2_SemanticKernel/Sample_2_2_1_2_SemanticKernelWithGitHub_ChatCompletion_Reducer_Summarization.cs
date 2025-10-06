@@ -1,14 +1,11 @@
 using System.ClientModel;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using OpenAI;
-using AITool.CSharp.Practice.Models.Settings;
-using AITool.CSharp.Practice.Models.Reducer;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 
 /// <summary>
 /// 2.2.1.2 Reducer 總結 (Summarization) 策略示範

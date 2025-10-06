@@ -1,11 +1,11 @@
 using System.ClientModel;
+using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.ChatCompletion;
 using OpenAI;
-using AITool.CSharp.Practice.Models.Settings;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 
 /// <summary>
 /// 2.2.1.1 Reducer 截斷 (Truncation) 策略示範

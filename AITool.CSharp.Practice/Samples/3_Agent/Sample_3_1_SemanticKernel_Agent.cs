@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Agents;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._3_Agent;
 
 /// <summary>
 /// 使用  https://github.com/microsoft/semantic-kernel?tab=readme-ov-file#basic-agent---net 基本範例

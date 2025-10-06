@@ -4,7 +4,7 @@ using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 
 /// <summary>
 /// 2.3 使用 SemanticKernel + OpenAI API Key +  Function Calling 範例

@@ -2,6 +2,8 @@ using System.Text.Encodings.Web;
 using AITool.CSharp.Practice.Infrastructure;
 using AITool.CSharp.Practice.Models.Settings;
 using AITool.CSharp.Practice.Samples;
+using AITool.CSharp.Practice.Samples._2_SemanticKernel;
+using AITool.CSharp.Practice.Samples._3_Agent;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

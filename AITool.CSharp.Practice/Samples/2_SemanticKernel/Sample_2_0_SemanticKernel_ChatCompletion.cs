@@ -1,10 +1,9 @@
-﻿using AITool.CSharp.Practice.Models;
-using AITool.CSharp.Practice.Models.Settings;
+﻿using AITool.CSharp.Practice.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.OpenAI;
 
-namespace AITool.CSharp.Practice.Samples;
+namespace AITool.CSharp.Practice.Samples._2_SemanticKernel;
 
 /// <summary>
 /// 使用 SemanticKernel + OpenAI API Key 進行最基本的聊天補全（Chat Completion）範例

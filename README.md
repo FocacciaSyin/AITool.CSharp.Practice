@@ -80,18 +80,28 @@ dotnet run --project AITool.CSharp.Practice
 - [x] 3.1 基本 Agent
 - [x] 3.1 基本 Agent + Function Calling
 
-## 4. RAG (檔案 & 外部知識)
+## 4. AutoGen 範例 (多 Agent 協作)
 
-- [ ] 4.0 建立 Qdrant Docker 環境
-- [ ] 4.1 整合 Semantic Kernel + Qdrant
-- [ ] 4.2 PDF → 向量化 & 查詢
-- [ ] 4.3 Markdown → 向量化
-- [ ] 4.4 股票新聞 RAG 檢索
+https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html
 
-## 5. AutoGen 範例 (多 Agent 協作)
+- [ ] 4.0 [AutoGen]  基本範例，建立 C# 版本
 
-- [ ] 5.0 [AutoGen](https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html) 基本範例，建立
-  Python 版本
+```csharp
+<PackageReference Include="Microsoft.AutoGen.Contracts" Version="0.4.0-dev.3" />
+<PackageReference Include="Microsoft.AutoGen.Core" Version="0.4.0-dev.3" />
+<PackageReference Include="Microsoft.AutoGen.AgentChat" Version="0.4.0-dev.3" />
+<PackageReference Include="Microsoft.AutoGen.Agents" Version="0.4.0-dev.3" />
+<PackageReference Include="Microsoft.AutoGen.Extensions" Version="0.4.0-dev.3" />
+```
+- [ ] 4.1 [AutoGen]  基本範例，建立 Python 版本
+
+## 5. RAG (檔案 & 外部知識)
+
+- [ ] 5.0 建立 Qdrant Docker 環境
+- [ ] 5.1 整合 Semantic Kernel + Qdrant
+- [ ] 5.2 PDF → 向量化 & 查詢
+- [ ] 5.3 Markdown → 向量化
+- [ ] 5.4 股票新聞 RAG 檢索
 
 ## 6. 股票顧問應用
 
