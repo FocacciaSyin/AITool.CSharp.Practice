@@ -55,7 +55,6 @@ var allSamples = new List<(string, Func<Task>)>
     ("4.0 [AutoGen] Basic Q&A", async () => await Sample_4_0_AutoGen_CSharp.RunAsync(openAISettings)),
 };
 
-
 Console.WriteLine("可以使用的範例:\n\n");
 var idx = 1;
 var map = new Dictionary<int, (string, Func<Task>)>();
