@@ -7,12 +7,14 @@ using OpenAI.Chat;
 namespace AITool.CSharp.Practice.Samples;
 
 /// <summary>
-/// 使用 OpenAI SDK 基本詢問
+/// 使用 Github MarketPlace + OpenAI SDK 基本詢問
 /// </summary>
-public static class Example01_AssistantAgent
+public static class Sample_1_OpenAISDK_GithubMarketPlace
 {
     /// <summary>
     /// GitHub MarketPlace OpenAI 範例
+    /// https://github.com/marketplace
+    /// https://github.com/marketplace/models/azure-openai/gpt-4-1/playground
     /// </summary>
     public static async Task RunAsync(GitHubSettings gitHubSettings)
     {

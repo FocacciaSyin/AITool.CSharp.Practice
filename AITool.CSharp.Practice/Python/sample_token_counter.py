@@ -4,10 +4,8 @@
 
 from token_counter import count_tokens
 
-
 def test_count_tokens():
     """測試 count_tokens 函數"""
-    
     print("測試 count_tokens 函數...")
 
     # 測試範例
@@ -17,12 +15,13 @@ def test_count_tokens():
         (""),  # 空字串
         ("AI"),  # 短文字 
     ]
-    
+
     encoding = "cl100k_base"
 
     for text in test_cases:
         token_count = count_tokens(text, encoding)
         print(f"'{text}' 使用 {encoding} 編碼: {token_count} tokens")
+
 
 def main():
     """主函數"""
