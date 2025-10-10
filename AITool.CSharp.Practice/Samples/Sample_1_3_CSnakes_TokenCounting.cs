@@ -9,19 +9,12 @@ namespace AITool.CSharp.Practice.Samples;
 /// 2. 示範如何在 .NET 中執行 Python 代碼進行 Token 計算
 /// 3. 比較不同模型的 Token 計算結果
 /// </summary>
-public class Sample_1_3_CSnakes_TokenCounting
+public class Sample_1_3_CSnakes_TokenCounting(IPythonEnvironment pythonEnvironment)
 {
-    private readonly IPythonEnvironment _pythonEnvironment;
-
-    public Sample_1_3_CSnakes_TokenCounting(IPythonEnvironment pythonEnvironment)
-    {
-        _pythonEnvironment = pythonEnvironment;
-    }
-
     /// <summary>
     /// 執行 Token 計算範例
     /// </summary>
-    public async Task ExecuteAsync()
+    public async Task RunAsync()
     {
         Console.WriteLine("=== 1.3 使用 CSnakes + tiktoken 計算 Token 數量範例 ===\n");
 
@@ -39,7 +32,7 @@ public class Sample_1_3_CSnakes_TokenCounting
         var modelNames = new[] { "GPT-4", "GPT-3.5-turbo", "GPT-3" };
 
         // 載入我們的 Python 模組
-        var tokenCounter = _pythonEnvironment.TokenCounter();
+        var tokenCounter = pythonEnvironment.TokenCounter();
 
         foreach (var text in testTexts)
         {

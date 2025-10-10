@@ -35,12 +35,11 @@ var gitHubSettings = configuration.GetSection("GitHub").Get<GitHubSettings>()!;
 var openAISettings = configuration.GetSection("OpenAI").Get<OpenAISettings>()!;
 var geminiSettings = configuration.GetSection("Gemini").Get<GeminiSettings>()!;
 
-
 // Define allSamples collection for all examples
 var allSamples = new List<(string, Func<Task>)>
 {
     ("1.0 [OpenAI.Chat] Use Github Market Place Token", async () => await Sample_1_OpenAISDK_GithubMarketPlace.RunAsync(gitHubSettings)),
-    ("1.3 [CSnake] Token Counting", async () => await app.Services.GetRequiredService<Sample_1_3_CSnakes_TokenCounting>().ExecuteAsync()),
+    ("1.3 [CSnake] Token Counting", async () => await app.Services.GetRequiredService<Sample_1_3_CSnakes_TokenCounting>().RunAsync()),
     ("1.4 [Microsoft.ML.Tokenizers] Token Counting", async () => await Sample_1_4_TokenCounting.RunAsync()),
     ("2.0 [SemanticKernel] Chat Completion", async () => await Sample_2_0_SemanticKernel_ChatCompletion.RunAsync(openAISettings)),
     ("2.0.1 [SemanticKernel] Chat Completion Response Format", async () => await Sample_2_0_1_SemanticKernel_ChatCompletion_ResponseFormat.RunAsync(openAISettings)),
