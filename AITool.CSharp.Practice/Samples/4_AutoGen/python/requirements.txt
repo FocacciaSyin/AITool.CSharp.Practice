@@ -1,0 +1,6 @@
+# AutoGen 相關套件
+autogen-agentchat
+autogen-ext[openai]
+
+# 環境變數管理
+python-dotenv
