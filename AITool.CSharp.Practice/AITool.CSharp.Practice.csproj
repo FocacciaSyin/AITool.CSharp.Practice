@@ -51,8 +51,4 @@
         </AdditionalFiles>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Samples\4_AutoGen\python\" />
-    </ItemGroup>
-
 </Project>
