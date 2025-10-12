@@ -1,1 +1,6 @@
 tiktoken>=0.7.0
+autogen-agentchat
+autogen-ext
+openai
+agent_framework
+azure-ai-agents==1.2.0b5

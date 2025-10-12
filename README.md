@@ -22,6 +22,12 @@
 - `Microsoft.Extensions.Hosting` (v9.0.8)
 - `Microsoft.Extensions.Logging.Console` (v9.0.8)
 
+## 使用 uv 安裝 Python環境
+
+```
+uv pip install -r AITool.CSharp.Practice/Python/requirements.txt --prerelease=allow
+```
+
 ### 2. 設定 OpenAI API 金鑰
 
 #### appsettings.Development.json
@@ -61,7 +67,6 @@ dotnet run --project AITool.CSharp.Practice
     - [x] 建立 token_counter.py > count_tokens 函式
     - [x] 使用 sample_token_counter.py 測試
 
-
 ## 2. Semantic Kernel 基礎
 
 - [x] 2.0 聊天整合 (OpenAI → GitHub Model)
@@ -93,7 +98,15 @@ https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index
 <PackageReference Include="Microsoft.AutoGen.Agents" Version="0.4.0-dev.3" />
 <PackageReference Include="Microsoft.AutoGen.Extensions" Version="0.4.0-dev.3" />
 ```
+
 - [ ] 4.1 [AutoGen]  基本範例，建立 Python 版本
+
+## 5.  Agent-Framework
+
+https://github.com/microsoft/agent-framework
+
+- [ ]  5.1 [Agent-Framework]  建立 C# 基本範例
+
 
 ## 5. RAG (檔案 & 外部知識)
 
@@ -118,6 +131,7 @@ podman run -d --name qdrant -p 6333:6333 -p 6334:6334 -v qdrant_storage:/qdrant/
 ![img.png](./Documents/Images/kilocode_index_settings_1.png)
 
 #### 進入 Dashboard
+
 http://localhost:6333/dashboard
 
 ## 6. 股票顧問應用
@@ -134,6 +148,7 @@ http://localhost:6333/dashboard
 ## 9. Microsoft.Extensions.AI.Evaluation 評估機制
 
 ## 10. Opentelemetry 觀察性
+
 [.NET Aspire + Semantic Kernel](https://www.youtube.com/watch?v=0N8-NHjcG1U)
 [microsoft semantic-kernel ](https://learn.microsoft.com/zh-tw/semantic-kernel/concepts/enterprise-readiness/observability/telemetry-with-console?tabs=Powershell-CreateFile%2CEnvironmentFile&pivots=programming-language-csharp)
 
@@ -152,13 +167,14 @@ podman run -it -d -p 18888:18888 -p 4317:18889 --name aspire-dashboard mcr.micro
 ### Langfuese + Sermantic Kernel
 
 1. 安裝 Docker 環境，自己 clone Langfuse 專案 執行 `docker-compose up -d`
-https://github.com/langfuse/langfuse?tab=readme-ov-file#self-host-langfuse
+   https://github.com/langfuse/langfuse?tab=readme-ov-file#self-host-langfuse
 
 參考官方文件
 https://langfuse.com/integrations/frameworks/semantic-kernel
 
 1. 實作 builder.Services.AddLangfuseOpenTelemetry();
 2. 登入 Langfuse 建立專案 取得 PublicKey & SecretKey
+
 ```json
   "Langfuse": {
     "SecretKey": "sk-lf-d77acb00-67ea-4dba-9850-ba55f7c2cda9",
@@ -166,8 +182,6 @@ https://langfuse.com/integrations/frameworks/semantic-kernel
     "Host": "http://localhost:3000/api/public/otel/v1/traces"
   }
 ```
-
-
 
 ---
 

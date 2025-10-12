@@ -13,9 +13,8 @@ namespace AITool.CSharp.Practice.Infrastructure;
 
 public static class LangfuseSeriveExtention
 {
-    public static async Task<IServiceCollection> AddLangfuseOpenTelemetry(this IServiceCollection services)
+    public static IServiceCollection AddLangfuseOpenTelemetry(this IServiceCollection services)
     {
-        
         // 從組態檔取得 Langfuse 設定
         var configuration = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
         var langfuseSection = configuration.GetSection("Langfuse");
@@ -24,7 +23,7 @@ public static class LangfuseSeriveExtention
         var host = langfuseSection.GetValue<string>(nameof(LangfuseSettings.Host)) ?? string.Empty;
         var plainTextBytes = System.Text.Encoding.UTF8.GetBytes($"{publicKey}:{secretKey}");
         string base64EncodedAuth = Convert.ToBase64String(plainTextBytes);
-        
+
         // Endpoint to the Aspire Dashboard / Grafana Tempo (目前測試用 Tempo 看就不需要管 unicode 的問題)
         var endpoint = host;
 
@@ -40,23 +39,28 @@ public static class LangfuseSeriveExtention
             .SetSampler(new AlwaysOnSampler())
             .SetResourceBuilder(resourceBuilder)
             .AddSource("Microsoft.SemanticKernel*")
+            .AddSource("*Microsoft.Agents.AI")
+            .AddHttpClientInstrumentation() //Agent Framework calls OpenAI
             .AddConsoleExporter(options => { options.Targets = ConsoleExporterOutputTargets.Console; })
             .AddOtlpExporter(options =>
             {
                 options.Endpoint = new Uri(endpoint);
                 options.Protocol = OtlpExportProtocol.HttpProtobuf;
-                options.Headers = $"Authorization=Basic {base64EncodedAuth}";  
+                options.Headers = $"Authorization=Basic {base64EncodedAuth}";
             })
             .Build();
 
         // 在應用程式退出前明確刷新遙測數據，
         // 對於控制台應用程式非常重要是必須的。
         traceProvider.ForceFlush();
-        await Task.Delay(3000);
-        
+        Task.Delay(3000).Wait();
+
         var meterProvider = Sdk.CreateMeterProviderBuilder()
             .SetResourceBuilder(resourceBuilder)
             .AddMeter("Microsoft.SemanticKernel*")
+            .AddMeter("*Microsoft.Agents.AI")
+            .AddHttpClientInstrumentation() // HTTP client metrics Agent Framework calls OpenAI
+            .AddRuntimeInstrumentation() // .NET runtime metrics Agent Framework calls OpenAI
             .AddOtlpExporter(options => options.Endpoint = new Uri(endpoint))
             .Build();
 

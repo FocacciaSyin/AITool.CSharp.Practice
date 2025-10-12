@@ -1,8 +1,11 @@
+using AITool.CSharp.Practice.Infrastructure;
 using AITool.CSharp.Practice.Models.Settings;
 using AITool.CSharp.Practice.Samples;
 using AITool.CSharp.Practice.Samples._2_SemanticKernel;
 using AITool.CSharp.Practice.Samples._3_Agent;
+using AITool.CSharp.Practice.Samples._4_AutoGen;
 using AITool.CSharp.Practice.Samples._4_AutoGen.dotnet;
+using AITool.CSharp.Practice.Samples._5_Agent_Framework;
 using CSnakes.Runtime;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,16 +22,24 @@ builder.Configuration.AddUserSecrets<Program>();
 
 // 設定 CSnakes Python 環境
 var home = Path.Join(Directory.GetCurrentDirectory(), "Python");
+var sample4 = Path.Join(Directory.GetCurrentDirectory(), "Samples", "4_AutoGen", "python");
 builder.Services
     .WithPython()
     .WithHome(home)
+    // .WithHome(sample4)
     .WithVirtualEnvironment(Path.Combine(home, ".venv"))
-    .WithPipInstaller()
+    //.WithPipInstaller()
+    .WithUvInstaller()
     .FromRedistributable();
 
 builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
 
+// Add Observability
+// await builder.Services.AddLangfuseOpenTelemetry();
+builder.Services.AddCustomOpenTelemetry();
+
 var app = builder.Build();
+var pythonEnvironment = app.Services.GetRequiredService<IPythonEnvironment>();
 
 // Load settings
 var gitHubSettings = configuration.GetSection("GitHub").Get<GitHubSettings>()!;
@@ -53,6 +64,9 @@ var allSamples = new List<(string, Func<Task>)>
     ("3.1 [SemanticKernel] Agent", async () => await Sample_3_1_SemanticKernel_Agent.RunAsync(openAISettings)),
     ("3.1 [SemanticKernel] Agent Plugins", async () => await Sample_3_1_SemanticKernel_Agent_Plugins.RunAsync(openAISettings)),
     ("4.0 [AutoGen] Basic Q&A", async () => await Sample_4_0_AutoGen_CSharp.RunAsync(openAISettings)),
+    ("4.1 [AutoGen] Csnake Basic Q&A", async () => await Sample_4_1_CSnake_AutoGen.RunAsync(pythonEnvironment, openAISettings)),
+    ("5.1 [Agent Framework] Basic Agent", async () => await Sample_5_1_AgentFramework.RunAsync(openAISettings)),
+    ("5.1.1 [Agent Framework] Made By CSnake", async () => await Sample_5_1_CSanke_AgentFramework.RunAsync(pythonEnvironment, openAISettings))
 };
 
 Console.WriteLine("可以使用的範例:\n\n");

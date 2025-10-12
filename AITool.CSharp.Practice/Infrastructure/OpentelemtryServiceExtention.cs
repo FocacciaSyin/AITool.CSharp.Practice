@@ -35,6 +35,8 @@ public static class OpentelemtryServiceExtention
         var traceProvider = Sdk.CreateTracerProviderBuilder()
             .SetResourceBuilder(resourceBuilder)
             .AddSource("Microsoft.SemanticKernel*")
+            .AddSource("*Microsoft.Agents.AI")
+            .AddHttpClientInstrumentation() //Agent Framework calls OpenAI
             .AddConsoleExporter(options => { options.Targets = ConsoleExporterOutputTargets.Console; })
             .AddOtlpExporter(options =>
             {
@@ -46,6 +48,9 @@ public static class OpentelemtryServiceExtention
         var meterProvider = Sdk.CreateMeterProviderBuilder()
             .SetResourceBuilder(resourceBuilder)
             .AddMeter("Microsoft.SemanticKernel*")
+            .AddMeter("*Microsoft.Agents.AI") 
+            .AddHttpClientInstrumentation() // HTTP client metrics Agent Framework calls OpenAI
+            .AddRuntimeInstrumentation() // .NET runtime metrics Agent Framework calls OpenAI
             .AddOtlpExporter(options => options.Endpoint = new Uri(endpoint))
             .Build();
 

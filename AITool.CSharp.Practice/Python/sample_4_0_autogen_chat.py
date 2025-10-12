@@ -1,8 +1,7 @@
 ﻿import asyncio
 import os
 from dotenv import load_dotenv
-from AgentChat import AgentChat
-
+from my_autogen_agent_chat import my_agent_chat
 
 async def main() -> None:
     # 載入 .env 檔案中的環境變數
@@ -14,7 +13,7 @@ async def main() -> None:
     if not api_key:
         raise ValueError("請設定 OPENAI_API_KEY 環境變數於 .env 檔案中!")
 
-    await AgentChat(api_key)
+    await my_agent_chat(api_key, "gpt-4o-mini")
 
 
 if __name__ == "__main__":

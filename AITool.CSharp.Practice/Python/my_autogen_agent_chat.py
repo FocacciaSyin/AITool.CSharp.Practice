@@ -1,10 +1,9 @@
 ﻿from autogen_agentchat.agents import AssistantAgent
 from autogen_ext.models.openai import OpenAIChatCompletionClient
 
-
-async def AgentChat(api_key) -> None:
+async def my_agent_chat(api_key: str, model: str) -> None:
     model_client = OpenAIChatCompletionClient(
-        model="gpt-4o-mini",
+        model=model,
         api_key=api_key
     )
     agent = AssistantAgent("assistant", model_client=model_client)

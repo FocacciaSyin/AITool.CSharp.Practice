@@ -1,0 +1,13 @@
+[project]
+name = "aitool-csharp-practice"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.11"
+dependencies = [
+    "autogen-agentchat>=0.7.5",
+    "autogen-ext>=0.7.5",
+    "azure-ai-agents==1.2.0b5",
+    "openai>=2.3.0",
+    "python-dotenv>=1.1.1",
+    "tiktoken>=0.12.0",
+]
