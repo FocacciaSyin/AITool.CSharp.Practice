@@ -22,11 +22,9 @@ builder.Configuration.AddUserSecrets<Program>();
 
 // 設定 CSnakes Python 環境
 var home = Path.Join(Directory.GetCurrentDirectory(), "Python");
-var sample4 = Path.Join(Directory.GetCurrentDirectory(), "Samples", "4_AutoGen", "python");
 builder.Services
     .WithPython()
     .WithHome(home)
-    // .WithHome(sample4)
     .WithVirtualEnvironment(Path.Combine(home, ".venv"))
     //.WithPipInstaller()
     .WithUvInstaller()

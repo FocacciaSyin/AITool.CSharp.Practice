@@ -11,16 +11,21 @@
 - `Microsoft.SemanticKernel` (v1.64.0)
 - `Microsoft.SemanticKernel.Agents.Core` (v1.65.0)
 - `Microsoft.SemanticKernel.Connectors.Google` (v1.64.0-alpha)
+- `Microsoft.Agents.AI.OpenAI` (v1.0.0-preview.251009.1)
 - `Microsoft.ML.Tokenizers` (v1.0.0)
 - `Microsoft.ML.Tokenizers.Data.Cl100kBase` (v1.0.0)
 - `Microsoft.ML.Tokenizers.Data.O200kBase` (v1.0.0)
-- `Microsoft.Extensions.Configuration` (v9.0.8)
-- `Microsoft.Extensions.Configuration.Json` (v9.0.8)
-- `Microsoft.Extensions.Configuration.EnvironmentVariables` (v9.0.8)
-- `Microsoft.Extensions.Configuration.UserSecrets` (v9.0.8)
-- `Microsoft.Extensions.DependencyInjection` (v9.0.8)
-- `Microsoft.Extensions.Hosting` (v9.0.8)
-- `Microsoft.Extensions.Logging.Console` (v9.0.8)
+- `Microsoft.Extensions.Configuration` (v9.0.9)
+- `Microsoft.Extensions.Configuration.Json` (v9.0.9)
+- `Microsoft.Extensions.Configuration.EnvironmentVariables` (v9.0.9)
+- `Microsoft.Extensions.Configuration.UserSecrets` (v9.0.9)
+- `Microsoft.Extensions.DependencyInjection` (v9.0.9)
+- `Microsoft.Extensions.Hosting` (v9.0.9)
+- `Microsoft.Extensions.Logging.Console` (v9.0.9)
+- `OpenTelemetry.Exporter.Console` (v1.12.0)
+- `OpenTelemetry.Exporter.OpenTelemetryProtocol` (v1.12.0)
+- `OpenTelemetry.Instrumentation.Http` (v1.12.0)
+- `OpenTelemetry.Instrumentation.Runtime` (v1.12.0)
 
 ## 使用 uv 安裝 Python環境
 
@@ -89,7 +94,7 @@ dotnet run --project AITool.CSharp.Practice
 
 https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html
 
-- [ ] 4.0 [AutoGen]  基本範例，建立 C# 版本
+- [x] 4.0 [AutoGen]  基本範例，建立 C# 版本
 
 ```csharp
 <PackageReference Include="Microsoft.AutoGen.Contracts" Version="0.4.0-dev.3" />
@@ -99,13 +104,14 @@ https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index
 <PackageReference Include="Microsoft.AutoGen.Extensions" Version="0.4.0-dev.3" />
 ```
 
-- [ ] 4.1 [AutoGen]  基本範例，建立 Python 版本
+- [x] 4.1 [AutoGen]  基本範例，建立 Python 版本
 
 ## 5.  Agent-Framework
 
 https://github.com/microsoft/agent-framework
 
-- [ ]  5.1 [Agent-Framework]  建立 C# 基本範例
+- [x]  5.1 [Agent-Framework]  建立 C# 基本範例
+- [x]  5.2 [Agent-Framework]  建立 Python 基本範例 (使用 devUI，但目前標記為失敗，改為直接使用 dotnet 版本)
 
 
 ## 5. RAG (檔案 & 外部知識)
