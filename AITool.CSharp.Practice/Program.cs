@@ -4,7 +4,6 @@ using AITool.CSharp.Practice.Samples;
 using AITool.CSharp.Practice.Samples._2_SemanticKernel;
 using AITool.CSharp.Practice.Samples._3_Agent;
 using AITool.CSharp.Practice.Samples._4_AutoGen;
-using AITool.CSharp.Practice.Samples._4_AutoGen.dotnet;
 using AITool.CSharp.Practice.Samples._5_Agent_Framework;
 using CSnakes.Runtime;
 using Microsoft.Extensions.Configuration;
@@ -61,10 +60,8 @@ var allSamples = new List<(string, Func<Task>)>
     ("2.4 [SemanticKernel] Function Calling Gemini", async () => await Sample_2_4_SemanticKernel_FunctionCalling_Gemini.RunAsync(geminiSettings)),
     ("3.1 [SemanticKernel] Agent", async () => await Sample_3_1_SemanticKernel_Agent.RunAsync(openAISettings)),
     ("3.1 [SemanticKernel] Agent Plugins", async () => await Sample_3_1_SemanticKernel_Agent_Plugins.RunAsync(openAISettings)),
-    ("4.0 [AutoGen] Basic Q&A", async () => await Sample_4_0_AutoGen_CSharp.RunAsync(openAISettings)),
     ("4.1 [AutoGen] Csnake Basic Q&A", async () => await Sample_4_1_CSnake_AutoGen.RunAsync(pythonEnvironment, openAISettings)),
-    ("5.1 [Agent Framework] Basic Agent", async () => await Sample_5_1_AgentFramework.RunAsync(openAISettings)),
-    ("5.1.1 [Agent Framework] Made By CSnake", async () => await Sample_5_1_CSanke_AgentFramework.RunAsync(pythonEnvironment, openAISettings))
+    ("5.1 [Agent Framework] Basic Agent", async () => await Sample_5_1_AgentFramework.RunAsync(openAISettings))
 };
 
 Console.WriteLine("可以使用的範例:\n\n");

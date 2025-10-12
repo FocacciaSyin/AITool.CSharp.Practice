@@ -94,7 +94,7 @@ dotnet run --project AITool.CSharp.Practice
 
 https://microsoft.github.io/autogen/stable/user-guide/agentchat-user-guide/index.html
 
-- [x] 4.0 [AutoGen]  基本範例，建立 C# 版本
+- [x] 4.0 [AutoGen] 先改使用 Agent-Framework 實作，未來應該都會使用另外一套
 
 ```csharp
 <PackageReference Include="Microsoft.AutoGen.Contracts" Version="0.4.0-dev.3" />
