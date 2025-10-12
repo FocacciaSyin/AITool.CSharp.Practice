@@ -33,8 +33,8 @@ builder.Services
 builder.Services.AddSingleton<Sample_1_3_CSnakes_TokenCounting>();
 
 // Add Observability
-// await builder.Services.AddLangfuseOpenTelemetry();
-builder.Services.AddCustomOpenTelemetry();
+builder.Services.AddLangfuseOpenTelemetry();
+// builder.Services.AddCustomOpenTelemetry();
 
 var app = builder.Build();
 var pythonEnvironment = app.Services.GetRequiredService<IPythonEnvironment>();
