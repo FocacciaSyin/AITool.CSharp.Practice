@@ -6,7 +6,7 @@
 public class GeminiSettings
 {
     /// <summary>
-    /// GitHub API 金鑰
+    /// Gemini API 金鑰
     /// </summary>
     public string ApiKey { get; set; } = string.Empty;
 
@@ -14,4 +14,9 @@ public class GeminiSettings
     /// 模型名稱
     /// </summary>
     public required string ModelId { get; set; }
+
+    /// <summary>
+    /// 嵌入模型名稱
+    /// </summary>
+    public string EmbeddingModelId { get; set; } = "gemini-embedding-001";
 }

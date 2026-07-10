@@ -38,6 +38,7 @@
         <PackageReference Include="Microsoft.SemanticKernel" Version="1.65.0"/>
         <PackageReference Include="Microsoft.SemanticKernel.Agents.Core" Version="1.65.0"/>
         <PackageReference Include="Microsoft.SemanticKernel.Connectors.Google" Version="1.64.0-alpha"/>
+        <PackageReference Include="Microsoft.SemanticKernel.Connectors.Qdrant" Version="1.66.0-preview" />
         <PackageReference Include="Microsoft.ML.Tokenizers" Version="1.0.2"/>
         <PackageReference Include="Microsoft.ML.Tokenizers.Data.Cl100kBase" Version="1.0.2"/>
         <PackageReference Include="Microsoft.ML.Tokenizers.Data.O200kBase" Version="1.0.2"/>
@@ -48,6 +49,8 @@
         <PackageReference Include="Microsoft.AutoGen.AgentChat" Version="0.4.0-dev.3"/>
         <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0"/>
         <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0"/>
+        <!-- Qdrant 相關套件 -->
+        <PackageReference Include="Microsoft.Extensions.Http" Version="9.0.9"/>
     </ItemGroup>
 
     <ItemGroup>
