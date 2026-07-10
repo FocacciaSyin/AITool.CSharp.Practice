@@ -52,7 +52,8 @@ uv pip install -r AITool.CSharp.Practice/Python/requirements.txt --prerelease=al
 ### 3. 執行專案
 
 ```bash
-dotnet run --project AITool.CSharp.Practice
+cd AITool.CSharp.Practice
+dotnet run
 ```
 
 ### 4. OpenAI Model 選擇
@@ -114,13 +115,13 @@ https://github.com/microsoft/agent-framework
 - [x]  5.2 [Agent-Framework]  建立 Python 基本範例 (使用 devUI，但目前標記為失敗，改為直接使用 dotnet 版本)
 
 
-## 5. RAG (檔案 & 外部知識)
+## 6. RAG (檔案 & 外部知識)
 
-- [ ] 5.0 建立 Qdrant Docker 環境
-- [ ] 5.1 整合 Semantic Kernel + Qdrant
-- [ ] 5.2 PDF → 向量化 & 查詢
-- [ ] 5.3 Markdown → 向量化
-- [ ] 5.4 股票新聞 RAG 檢索
+- [ ] 6.0 建立 Qdrant Docker 環境
+- [ ] 6.1 整合 Semantic Kernel + Qdrant
+- [ ] 6.2 PDF → 向量化 & 查詢
+- [ ] 6.3 Markdown → 向量化
+- [ ] 6.4 股票新聞 RAG 檢索
 
 ### Qdrant
 
@@ -141,9 +142,9 @@ docker run -d --name qdrant --restart=always -p 6333:6333 -p 6334:6334 -v D:/Doc
 
 http://localhost:6333/dashboard
 
-## 6. 股票顧問應用
+## 7. 股票顧問應用
 
-- [ ] 6.0 混合式 Agent
+- [ ] 7.0 混合式 Agent
     - [ ] 股票顧問 Agent (讀取 MSSQL 大盤資料)
     - [ ] 新聞檢索 Agent (RAG + Qdrant)
     - [ ] 使用者對話 Agent (整合 system prompt + 記憶)

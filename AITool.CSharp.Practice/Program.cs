@@ -5,6 +5,7 @@ using AITool.CSharp.Practice.Samples._2_SemanticKernel;
 using AITool.CSharp.Practice.Samples._3_Agent;
 using AITool.CSharp.Practice.Samples._4_AutoGen;
 using AITool.CSharp.Practice.Samples._5_Agent_Framework;
+using AITool.CSharp.Practice.Samples._6_Qdrant;
 using CSnakes.Runtime;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +43,7 @@ var pythonEnvironment = app.Services.GetRequiredService<IPythonEnvironment>();
 var gitHubSettings = configuration.GetSection("GitHub").Get<GitHubSettings>()!;
 var openAISettings = configuration.GetSection("OpenAI").Get<OpenAISettings>()!;
 var geminiSettings = configuration.GetSection("Gemini").Get<GeminiSettings>()!;
+var qdrantSettings = configuration.GetSection("Qdrant").Get<QdrantSettings>()!;
 
 // Define allSamples collection for all examples
 var allSamples = new List<(string, Func<Task>)>
@@ -61,7 +63,8 @@ var allSamples = new List<(string, Func<Task>)>
     ("3.1 [SemanticKernel] Agent", async () => await Sample_3_1_SemanticKernel_Agent.RunAsync(openAISettings)),
     ("3.1 [SemanticKernel] Agent Plugins", async () => await Sample_3_1_SemanticKernel_Agent_Plugins.RunAsync(openAISettings)),
     ("4.1 [AutoGen] Csnake Basic Q&A", async () => await Sample_4_1_CSnake_AutoGen.RunAsync(pythonEnvironment, openAISettings)),
-    ("5.1 [Agent Framework] Basic Agent", async () => await Sample_5_1_AgentFramework.RunAsync(openAISettings))
+    ("5.1 [Agent Framework] Basic Agent", async () => await Sample_5_1_AgentFramework.RunAsync(openAISettings)),
+    ("6.0 [Qdrant] Vector Search", async () => await Sample_6_0_Qdrant_VectorSearch.RunAsync(qdrantSettings, geminiSettings))
 };
 
 Console.WriteLine("可以使用的範例:\n\n");
